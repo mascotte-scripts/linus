@@ -1,2 +1,4 @@
 # Linus [WIP]
-A custom FiveM framework using the games internal database, named after the 'grandfather of linux', Linus Torvalds
+A custom FiveM framework using the games internal database, named after the 'grandfather of linux', Linus Torvalds.
+
+Code contains alot of unfinished functions
