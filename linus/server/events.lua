@@ -54,6 +54,8 @@ AddEventHandler('getcharacterclothes', function()
 end)
 
 
+-- Not fully working yet
+
 RegisterNetEvent('player:getplayerfunds')
 AddEventHandler('player:getplayerfunds', function()
     print('balance loaded')
