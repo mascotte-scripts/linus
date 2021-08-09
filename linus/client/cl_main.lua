@@ -7,7 +7,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if NetworkIsPlayerActive(PlayerId()) then
-			exports.spawnmanager:setAutoSpawn(false)
+			exports.spawnmanager:setAutoSpawn(false) -- Spawns anyway, probably due to me using fivem-hipster map until I create spawn functions
 			DoScreenFadeOut(0)
 			TriggerServerEvent('onPlayerJoined')
 			break
@@ -15,6 +15,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+-- Not called by anything
 RegisterNetEvent('player:createcharacter')
 AddEventHandler('player:createcharacter', function(existingid)
     print('hello?')
@@ -48,9 +50,9 @@ AddEventHandler('player:loadcharacterclothes', function(source, charappearance)
 end)
 
 
-
+-- unfinished
 RegisterNetEvent('player:updatedbalance')
-AddEventHandler('player:updatedbalance', function(source, playerbank, playercash)
+AddEventHandler('player:updatedbalance', function(playerbank, playercash)
 print('Im rich mf')
 local source = source
 local playerbank = playerbank
