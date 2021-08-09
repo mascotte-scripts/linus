@@ -10,13 +10,3 @@ print('saved with kvs')
 
 end)
 
--- gets the ID tied to an identifier in the schema, or nil
-function getPlayersIdFromIdentifier(identifier)
-    local str = GetResourceKvpString(('identifier:%s'):format(identifier))
-
-    if not str then
-        return nil
-    end
-
-    return msgpack.unpack(str).id
-end
