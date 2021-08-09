@@ -33,7 +33,7 @@ end
 
 -- Saves person to DB
 -- This will be set by an NUI at some point
-function CreateNewPlayer(source, identifier, name, lastname, dob, gender, job, inv)
+function CreateNewPlayer(source, identifier, playerdata)
 	local source = source
     SetResourceKvp(('users:%s:'):format(identifier), identifier)
 	SetResourceKvp(('users:%s:%s'):format(identifier, playerdata), identifier, playerdata)
