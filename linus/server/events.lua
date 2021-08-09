@@ -26,11 +26,13 @@ end)
 
 RegisterNetEvent('player:loadplayer')
 AddEventHandler('player:loadplayer', function(source, identifier, existingid)
+    local playerdata = {}
+    local playerdata.name = 'John Doe' -- Temp
         if existingid then 
                 print(('Joined: %s'):format(identifier))
                TriggerEvent('player:getplayerfunds')
         else if not existingid then
-                CreateNewPlayer(source, identifier)
+                CreateNewPlayer(source, identifier, playerdata)
                 TriggerClientEvent('player:createcharacter', source, existingid)
                 else
                 print('Unknown Error')
