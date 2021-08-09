@@ -36,12 +36,7 @@ end
 function CreateNewPlayer(source, identifier, name, lastname, dob, gender, job, inv)
 	local source = source
     SetResourceKvp(('users:%s:'):format(identifier), identifier)
-	SetResourceKvp(('users:%s:%s'):format(identifier, name), identifier, name)
-	SetResourceKvp(('users:%s:%s'):format(identifier, lastname), identifier, lastname)
-	SetResourceKvp(('users:%s:%s'):format(identifier, dob), identifier, dob)
-	SetResourceKvp(('users:%s:%s'):format(identifier, gender), identifier, gender)
-	SetResourceKvp(('users:%s:%s'):format(identifier, job), identifier, job)
-	SetResourceKvp(('users:%s:%s'):format(identifier, job), identifier, inv)
+	SetResourceKvp(('users:%s:%s'):format(identifier, playerdata), identifier, playerdata)
     print('CreateNewPlayer function')
 end
 
