@@ -32,6 +32,7 @@ GetPlayerFromIdentifier = function(identifier)
 end
 
 -- Saves person to DB
+-- This will be set by an NUI at some point
 function CreateNewPlayer(source, identifier, name, lastname, dob, gender, job, inv)
 	local source = source
     SetResourceKvp(('users:%s:'):format(identifier), identifier)
@@ -45,11 +46,6 @@ function CreateNewPlayer(source, identifier, name, lastname, dob, gender, job, i
 end
 
 
---function LoadExistingPlayer()
-	--local identifier = GetIdentifier(source)
-    --print(('Joined: %s'):format(identifier))
-  --  print('Load character function')
---end
 function GetCharSkin(source)
 	local source = source
     local identifier = GetIdentifier(source)
@@ -63,5 +59,5 @@ end
 
 function getMoneyForId(source, identifier, moneyType)
 	local source = source
-    return GetResourceKvpInt(('money:%s:%s'):format(identifier, moneyType)) / 100.0
+    return GetResourceKvpInt(('money:%s:%s'):format(identifier, moneyType))
 end
