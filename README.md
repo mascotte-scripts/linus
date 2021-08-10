@@ -8,3 +8,5 @@ Code contains alot of unfinished functions
 
 - Create a players table for cached data
 - Create a trello for ease of access
+- Convert multiplayercash/bank balance from a string to an int
+- 
