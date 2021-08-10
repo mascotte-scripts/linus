@@ -10,3 +10,4 @@ Code contains alot of unfinished functions
 - Create a trello for ease of access
 - Convert multiplayercash/bank balance from a string to an int
 - Create initial multiplayercash/bank data with SetResourceKvpInt to prevent nill error when getting a new players balance using GetResourceKvpInt
+- Add more convars to existing functions
