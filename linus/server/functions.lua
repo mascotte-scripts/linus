@@ -23,13 +23,23 @@ GetIdentifier = function(source)
 	end
 end
 
-GetPlayerFromIdentifier = function(identifier)
-	for k,v in pairs(CurrentPlayers) do
-		if v.identifier == identifier then
-			return v
+-- @parma identifier | string | player identifier with prefix('license:xxxxx')
+-- @return int | playerId or -1 if no player is found
+function getPlayerFromIdentifier(identifier)
+	local players = GetPlayers()
+
+	for i = 1, #players do
+		local playerId = tonumber(players[i])
+
+		for _, id in pairs(GetPlayerIdentifiers(playerId)) do
+			if id == identifier then
+				return playerId
+			end
 		end
 	end
+	return -1
 end
+exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
 
 -- Saves person to DB
 -- This will be set by an NUI at some point
