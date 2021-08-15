@@ -22,24 +22,24 @@ $(function () {
     // if the person uses the escape key, it will exit the resource
     document.onkeyup = function (data) {
         if (data.which == 27) {
-            $.post('http://admintools/exit', JSON.stringify({}));
+            $.post('https://admintools/exit', JSON.stringify({}));
             return
         }
     };
     $("#close").click(function () {
-        $.post('http://admintools/exit', JSON.stringify({}));
+        $.post('https://admintools/exit', JSON.stringify({}));
         return
     })
     //when the user clicks on the submit button, it will run
     $("#submit").click(function () {
         let inputValue = $("#input").val()
         if (inputValue.length >= 100) {
-            $.post("http://admintools/error", JSON.stringify({
+            $.post("https://admintools/error", JSON.stringify({
                 error: "Input was greater than 100"
             }))
             return
         } else if (!inputValue) {
-            $.post("http://admintools/error", JSON.stringify({
+            $.post("https://admintools/error", JSON.stringify({
                 error: "There was no value in the input field"
             }))
             return
