@@ -26,7 +26,7 @@ $(function () {
             return
         }
     };
-    $("#database-card").click(function () {
+    $("#close").click(function () {
         $.post('http://admintools/exit', JSON.stringify({}));
         return
     })
