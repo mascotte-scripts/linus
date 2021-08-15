@@ -1,0 +1,78 @@
+body {
+
+    background: none !important;
+}
+
+#admin-commands:hover {
+
+    background-color: #343a40;
+
+}
+
+#admin-commands:hover h8{
+
+    color: #FFFF;
+
+}
+
+#database-card:hover {
+
+    background-color: #343a40;
+
+}
+
+#database-card:hover h8{
+
+    color: #FFFF;
+
+}
+
+
+#mod-log:hover {
+
+    background-color: #343a40;
+
+}
+
+#mod-log:hover h8{
+
+    color: #FFFF;
+
+}
+
+#p-management:hover {
+
+    background-color: #343a40;
+
+}
+
+#p-management:hover h8{
+
+    color: #FFFF;
+
+}
+
+#ses-man:hover {
+
+    background-color: #343a40;
+
+}
+
+#ses-man:hover h8{
+
+    color: #FFFF;
+
+}
+
+
+#valk:hover {
+
+    background-color: #343a40;
+
+}
+
+#valk:hover h8{
+
+    color: #FFFF;
+
+}
