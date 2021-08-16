@@ -59,8 +59,12 @@ submit.addEventListener('click', () => {
 */
 
 
+var draggableElements = document.getElementsByClassName("draggable");
+
 // Make the DIV element draggable:
-dragElement(document.getElementById("site-container"));
+for(var i = 0; i < draggableElements.length; i++){
+  dragElement(draggableElements[i]);
+}
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
