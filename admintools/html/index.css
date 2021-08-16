@@ -1,6 +1,7 @@
 body {
 
     background: none !important;
+    overflow: hidden; 
 }
 
 #admin-commands:hover {
@@ -76,3 +77,18 @@ body {
     color: #FFFF;
 
 }
+
+#site-container {
+    position: absolute;
+  }
+
+
+#site-container-header {
+    background-color: #FFFF;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+ }
+
+
+
