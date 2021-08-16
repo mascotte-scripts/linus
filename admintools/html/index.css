@@ -41,6 +41,13 @@ body {
 
 }
 
+#module-admin-header {
+    display: none;
+    overflow: hidden;
+    width: 400px;
+    top: 10%;
+}
+
 #p-management:hover {
 
     background-color: #343a40;
