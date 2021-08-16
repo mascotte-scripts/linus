@@ -1,53 +1,59 @@
-$(function () {
-    function display(bool) {
-        if (bool) {
-            $("#site-container").show();
-        } else {
-            $("#site-container").hide();
-        }
-    }
+function post(url, data) {
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+}
 
-    display(false)
+window.addEventListener('load', () => {
+  const site = document.getElementById('site-container')
 
-    window.addEventListener('message', function(event) {
-        var item = event.data;
-        if (item.type === "ui") {
-            if (item.status == true) {
-                display(true)
-            } else {
-                display(false)
-            }
-        }
-    })
-    // if the person uses the escape key, it will exit the resource
-    document.onkeyup = function (data) {
-        if (data.which == 27) {
-            $.post('https://admintools/exit', JSON.stringify({}));
-            return
-        }
-    };
-    $("#close").click(function () {
-        $.post('https://admintools/exit', JSON.stringify({}));
-        return
-    })
-    //when the user clicks on the submit button, it will run
-    $("#submit").click(function () {
-        let inputValue = $("#input").val()
-        if (inputValue.length >= 100) {
-            $.post("https://admintools/error", JSON.stringify({
-                error: "Input was greater than 100"
-            }))
-            return
-        } else if (!inputValue) {
-            $.post("https://admintools/error", JSON.stringify({
-                error: "There was no value in the input field"
-            }))
-            return
-        }
-        // if there are no errors from above, we can send the data back to the original callback and hanndle it from there
-        $.post('http://admintools/main', JSON.stringify({
-            text: inputValue,
-        }));
-        return;
-    })
+  site.style.display = 'none';
 })
+
+window.addEventListener('message', event => {
+  let item = event.data;
+
+  if (item.type === 'ui') {
+    const site = document.getElementById('site-container')
+
+    if (item.status == true) {
+      site.style.display = '';
+    } else {
+      site.style.display = 'none';
+    }
+  }
+})
+
+window.addEventListener('keyup', event => {
+  if (event.keyCode === 27) {
+    post('https://admintools/exit', {});
+  }
+})
+
+/*
+const close = document.getElementById('close')
+
+close.addEventListener('click', () => {
+  post('https://admintools/exit', {})
+})
+
+const submit = document.getElementById('submit')
+
+submit.addEventListener('click', () => {
+  const input = document.getElementById('input')
+  let value = input.val()
+
+  if (value.length >= 100) {
+    // we probably want a more verbose error
+    post('https://admintools/error', {error: 'Input was greater than 100'});
+    return;
+  } else if (!value) {
+    post('https://admintools/error', {error: 'Input field was empty'});
+    return;
+  }
+
+  post('http://admintools/main', {text: value});
+})
+*/
