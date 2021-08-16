@@ -19,7 +19,7 @@ window.addEventListener('message', event => {
     const site = document.getElementById('site-container')
 
     if (item.status == true) {
-      site.style.display = '';
+      site.style.display = 'block';
     } else {
       site.style.display = 'none';
     }
