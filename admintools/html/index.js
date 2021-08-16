@@ -106,3 +106,14 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+// Function hides or displays a html module using onclick
+
+function showhtmlmodule(module) {
+  var x = document.getElementById(module);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
