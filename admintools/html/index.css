@@ -16,6 +16,28 @@ body {
 
 }
 
+#admin-execute-button {
+
+
+    color: #FFFF;
+    background-color: red;
+
+}
+
+#admin-execute-button:hover {
+
+
+    color: #FFFF;
+    background-color: #343a40;
+
+}
+
+#credits {
+
+    color: #FFFF;
+
+}
+
 #database-card:hover {
 
     background-color: #343a40;
@@ -43,8 +65,16 @@ body {
 
 #module-admin-header {
     display: none;
-    overflow: hidden;
+   
     width: 400px;
+    top: 10%;
+}
+
+#module-players-header {
+    display: none;
+   
+    width: 400px;
+    left: 98%;
     top: 10%;
 }
 
@@ -60,6 +90,22 @@ body {
 
 }
 
+#players-execute-button {
+
+
+    color: #FFFF;
+    background-color: rgb(14, 226, 14);
+
+}
+
+#players-execute-button:hover {
+
+
+    color: #FFFF;
+    background-color: #343a40;
+
+}
+
 #ses-man:hover {
 
     background-color: #343a40;
@@ -71,6 +117,21 @@ body {
     color: #FFFF;
 
 }
+
+#site-container {
+    position: absolute;
+    display: none;
+  }
+
+
+
+
+#site-container-header {
+    background-color: #FFFF;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+ }
 
 
 #valk:hover {
@@ -84,19 +145,3 @@ body {
     color: #FFFF;
 
 }
-
-#site-container {
-    position: absolute;
-    display: none;
-  }
-
-
-#site-container-header {
-    background-color: #FFFF;
-    position: absolute;
-    top: 50%;
-    left: 40%;
- }
-
-
-
