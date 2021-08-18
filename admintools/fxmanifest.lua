@@ -1,11 +1,13 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Mascotte'
+author 'Mascotte45 and N0tSomething'
 description 'Admin NUI for Linus framework'
 version '1.0.0'
 
 client_script "nui.lua"
+
+server_script "server.lua"
 
 ui_page "html/index.html"
 
