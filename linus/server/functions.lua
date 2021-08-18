@@ -1,9 +1,5 @@
--- For testing sake, default char value is equal to char1
--- Needs full implementation
-
 char = 'char1'
 
--- Function that gets the identifier
 GetIdentifier = function(source)
 	local UsingMultiChar = GetConvar("UsingMultiChar", "true")
 	if UsingMultiChar then
@@ -23,14 +19,10 @@ GetIdentifier = function(source)
 	end
 end
 
--- @parma identifier | string | player identifier with prefix('license:xxxxx')
--- @return int | playerId or -1 if no player is found
 function getPlayerFromIdentifier(identifier)
 	local players = GetPlayers()
-
 	for i = 1, #players do
 		local playerId = tonumber(players[i])
-
 		for _, id in pairs(GetPlayerIdentifiers(playerId)) do
 			if id == identifier then
 				return playerId
@@ -41,28 +33,27 @@ function getPlayerFromIdentifier(identifier)
 end
 exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
 
--- Saves person to DB
--- This will be set by an NUI at some point
-function CreateNewPlayer(source, identifier, playerdata)
+function CreateNewPlayer(source, identifier)
 	local source = source
     SetResourceKvp(('users:%s:'):format(identifier), identifier)
-	SetResourceKvp(('users:%s:%s'):format(identifier, playerdata), identifier, playerdata)
-    print('CreateNewPlayer function')
-end
 
+end
 
 function GetCharSkin(source)
 	local source = source
     local identifier = GetIdentifier(source)
     local appearance =  GetResourceKvpString(('users:%s:outfit_current'):format(identifier))
     local charappearance = json.decode(appearance)
-
 	return charappearance
 end
 
--- Gets cash as a string, need to substring it
-
-function getMoneyForId(source, identifier, moneyType)
-	local source = source
-    return GetResourceKvpInt(('money:%s:%s'):format(identifier, moneyType))
+function GetPlayerList()
+    local players = GetPlayers()
+    local playerList = {}
+    for i = 1, #players do
+      local playerId = tonumber(players[i])
+      local name = GetPlayerName(playerId)
+      playerList[playerId] = name
+    end
+    return playerList
 end
