@@ -1,3 +1,6 @@
+veryfirstspawn = false
+local players = {}
+
 -- To Trigger Use: TriggerServerEvent('Admin:RequestPlayerList')
 RegisterNetEvent('Admin:RecievePlayerList')
 AddEventHandler('Admin:RecievePlayerList', function(playerList)
