@@ -14,7 +14,6 @@ AddEventHandler('playerSpawned', function()
   else
     TriggerServerEvent('getcharacterclothes', source)
   end
-end
 end)
 
 RegisterNetEvent('player:loadcharacterclothes')
