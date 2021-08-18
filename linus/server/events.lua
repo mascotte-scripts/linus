@@ -1,16 +1,3 @@
-firstspawn = false
-
---AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
-  --  local identifier = GetIdentifier(source)
-   -- local existingid = GetResourceKvpString(('users:%s:'):format(identifier), identifier)
-     --   if not identifier then
-       --     deferrals.done('Unknown Error. We could not find your identifier. Try restarting your FiveM game client')
-        --else if identifier then
-          -- TriggerEvent('player:loadplayer', source, identifier, existingid)
-        --end 
-    --end
---end)
-
 RegisterNetEvent('onPlayerJoined')
 AddEventHandler('onPlayerJoined', function()
     local identifier = GetIdentifier(source)
@@ -23,17 +10,12 @@ AddEventHandler('onPlayerJoined', function()
     end
 end)
 
-
 RegisterNetEvent('player:loadplayer')
 AddEventHandler('player:loadplayer', function(source, identifier, existingid)
-    local playerdata = {}
-    local playerdata.name = 'John Doe' -- Temp
         if existingid then 
                 print(('Joined: %s'):format(identifier))
-               TriggerEvent('player:getplayerfunds')
         else if not existingid then
-                CreateNewPlayer(source, identifier, playerdata)
-                TriggerClientEvent('player:createcharacter', source, existingid)
+                CreateNewPlayer(source, identifier)
                 else
                 print('Unknown Error')
         end
@@ -49,21 +31,12 @@ end)
 
 RegisterNetEvent('getcharacterclothes')
 AddEventHandler('getcharacterclothes', function()
-    print('made it here')
     local source = source
-  local charappearance  = GetCharSkin(source)
+    local charappearance  = GetCharSkin(source)
     TriggerClientEvent('player:loadcharacterclothes', source, charappearance)
 end)
 
-
--- Not fully working yet
-
-RegisterNetEvent('player:getplayerfunds')
-AddEventHandler('player:getplayerfunds', function()
-    print('balance loaded')
-    local source = source
-    local identifier = GetIdentifier(source)
-    local playerbank = getMoneyForId(source, identifier, bank)
-    local playercash = getMoneyForId(source, identifier, cash)
-    TriggerClientEvent('player:updatedbalance', source, playerbank, playercash)
+RegisterNetEvent('Admin:RequestPlayerList', function()
+    local playerList = GetPlayerList()   
+    TriggerLatentClientEvent('Admin:RecievePlayerList', source, 500, playerList)    
 end)
