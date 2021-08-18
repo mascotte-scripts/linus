@@ -32,33 +32,6 @@ window.addEventListener('keyup', event => {
   }
 })
 
-/*
-const close = document.getElementById('close')
-
-close.addEventListener('click', () => {
-  post('https://admintools/exit', {})
-})
-
-const submit = document.getElementById('submit')
-
-submit.addEventListener('click', () => {
-  const input = document.getElementById('input')
-  let value = input.val()
-
-  if (value.length >= 100) {
-    // we probably want a more verbose error
-    post('https://admintools/error', {error: 'Input was greater than 100'});
-    return;
-  } else if (!value) {
-    post('https://admintools/error', {error: 'Input field was empty'});
-    return;
-  }
-
-  post('http://admintools/main', {text: value});
-})
-*/
-
-
 var draggableElements = document.getElementsByClassName("draggable");
 
 // Make the DIV element draggable:
@@ -71,7 +44,9 @@ function dragElement(elmnt) {
   if (document.getElementById(elmnt.id + "-header")) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
-  } else {
+  }
+  
+  else {
     // otherwise, move the DIV from anywhere inside the DIV:
     elmnt.onmousedown = dragMouseDown;
   }
@@ -107,6 +82,7 @@ function dragElement(elmnt) {
   }
 }
 
+
 // Function hides or displays a html module using onclick
 
 function showhtmlmodule(module) {
@@ -117,3 +93,21 @@ function showhtmlmodule(module) {
     x.style.display = "none";
   }
 }
+
+
+  document.getElementById("admin-execute-button").addEventListener("click", function() {
+   const getinputdata = document.getElementById('command-execute-nui').value
+  var select = document.getElementById('inputGroupSelect01');
+  var value = select.options[select.selectedIndex].value; // en
+
+    if (value == 1) { 
+      post('https://admintools/ban', getinputdata);
+    } else
+
+    if (value == 2) { 
+      post('https://admintools/kick', getinputdata);
+    } else
+
+    if (value == 6) { 
+  } else { post('https://admintools/test', {}); }
+  });
