@@ -1,13 +1,11 @@
 veryfirstspawn = false
-
-
--- Initiate client session
+local players = {}
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if NetworkIsPlayerActive(PlayerId()) then
-			exports.spawnmanager:setAutoSpawn(false) -- Spawns anyway, probably due to me using fivem-hipster map until I create spawn functions
+			exports.spawnmanager:setAutoSpawn(true)
 			DoScreenFadeOut(0)
 			TriggerServerEvent('onPlayerJoined')
 			break
@@ -15,6 +13,10 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('Admin:RecievePlayerList')
+AddEventHandler('Admin:RecievePlayerList', function(playerList)
+  local players = playerList
+end)
 
 -- Not called by anything
 RegisterNetEvent('player:createcharacter')
@@ -30,12 +32,11 @@ AddEventHandler('player:createcharacter', function(existingid)
         end
 end)
 
-
 AddEventHandler('playerSpawned', function()
   if veryfirstspawn then
   CreateNewPlayerAppearance(source)
     veryfirstspawn = false
-  else if not veryfirstspawn then
+  else
     TriggerServerEvent('getcharacterclothes', source)
   end
 end
@@ -47,15 +48,4 @@ AddEventHandler('player:loadcharacterclothes', function(source, charappearance)
   local appearance = charappearance
   exports["fivem-appearance"]:setPlayerAppearance(source, appearance)
   print('Loaded clothes')
-end)
-
-
--- unfinished
-RegisterNetEvent('player:updatedbalance')
-AddEventHandler('player:updatedbalance', function(playerbank, playercash)
-print('Im rich mf')
-local source = source
-local playerbank = playerbank
-  StatSetInt("BANK_BALANCE", playerbank, true)
-  StatSetInt("MP0_WALLET_BALANCE", player, true)
 end)
