@@ -12,24 +12,10 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-
+-- To Trigger Use: TriggerServerEvent('Admin:RequestPlayerList')
 RegisterNetEvent('Admin:RecievePlayerList')
 AddEventHandler('Admin:RecievePlayerList', function(playerList)
   local players = playerList
-end)
-
--- Not called by anything
-RegisterNetEvent('player:createcharacter')
-AddEventHandler('player:createcharacter', function(existingid)
-    print('hello?')
-    local existingid = existingid
-    if not existingid then
-    -- CreateNewPlayerAppearance(source)
-    veryfirstspawn = true
-            else if existingid then 
-                  print('insert load character function here')
-             end
-        end
 end)
 
 AddEventHandler('playerSpawned', function()
@@ -44,8 +30,7 @@ end)
 
 RegisterNetEvent('player:loadcharacterclothes')
 AddEventHandler('player:loadcharacterclothes', function(source, charappearance)
-  print('and here')
   local appearance = charappearance
   exports["fivem-appearance"]:setPlayerAppearance(source, appearance)
-  print('Loaded clothes')
+  print('Loaded Outfit')
 end)
