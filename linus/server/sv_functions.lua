@@ -19,7 +19,7 @@ end
 function GetCharSkin(source, charid)
 	local source = source
     local identifier = GetIdentifier(source, charid)
-    local appearance =  GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
+    local appearance =  GetResourceKvpString(('users:%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)
 	return charappearance
 end
