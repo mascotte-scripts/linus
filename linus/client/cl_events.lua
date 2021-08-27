@@ -3,19 +3,9 @@ isSpawn = false
 firstspawn = false
 
 AddEventHandler('playerSpawned', function()
-    if firstspawn then
-        Citizen.CreateThread(function()
-            local playerPed = PlayerPedId()
-            SetPedComponentVariation(playerPed, 0, 0, 0, 2) --Face
-            SetPedComponentVariation(playerPed, 2, 11, 4, 2) --Hair 
-            SetPedComponentVariation(playerPed, 4, 1, 5, 2) -- Pantalon
-            SetPedComponentVariation(playerPed, 6, 1, 0, 2) -- Shoes
-            SetPedComponentVariation(playerPed, 11, 7, 2, 2) -- Jacket
-          end)
-        CreateNewPlayerAppearance()
-        firstspawn = false
-    end
+    TriggerServerEvent('Player:GetCharactersOutfit')
 end)
+
 
 RegisterNetEvent('Multichar:InitiateClientSession')
 AddEventHandler('Multichar:InitiateClientSession', function(source)
@@ -26,7 +16,13 @@ end)
 
 RegisterNetEvent('Player:CreateNewCharacterOutfit')
 AddEventHandler('Player:CreateNewCharacterOutfit', function(source)
-    CreateNewPlayerAppearance()
+    if firstspawn then
+          Citizen.Wait(300)
+          CreateNewPlayerAppearance()
+        firstspawn = false
+        else
+        CreateNewPlayerAppearance() 
+    end
 end)
 
 RegisterNetEvent('Player:LoadCharacterOutfit')
@@ -55,6 +51,12 @@ end)
 RegisterNUICallback("SetCharacterData", function(CharacterData)
     isSpawn = true
     firstspawn = true
+    SetSelectionScreenDisplay(false)
+    TriggerServerEvent('Multichar:SetupCharacterData', CharacterData)
+    TriggerEvent('Player:SpawnPlayer', isSpawn)
+end)
+
+RegisterNUICallback("LoadCharacterData", function(CharacterData)
     SetSelectionScreenDisplay(false)
     TriggerServerEvent('Multichar:SetupCharacterData', CharacterData)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
