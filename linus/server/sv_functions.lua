@@ -16,6 +16,10 @@ function GetIdentifier(source, charid)
     end
 end
 
+function GetCharacterID(source, identifier)
+    return GetResourceKvpString(('users:%s:CharID'):format(identifier))
+end
+
 function GetCharSkin(source, charid)
 	local source = source
     local identifier = GetIdentifier(source, charid)
