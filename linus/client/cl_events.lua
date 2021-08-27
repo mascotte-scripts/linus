@@ -20,7 +20,7 @@ end)
 RegisterNetEvent('Multichar:InitiateClientSession')
 AddEventHandler('Multichar:InitiateClientSession', function(source)
     ShutdownLoadingScreenNui()
-    Citizen.Wait(0) -- NUI wont load right without this
+    Citizen.Wait(3000) -- NUI wont load right without this
     SetSelectionScreenDisplay(true)
 end)
 
