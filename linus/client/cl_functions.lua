@@ -21,10 +21,9 @@ function CreateNewPlayerAppearance()
 	exports['fivem-appearance']:startPlayerCustomization(function (appearance)
 		if (appearance) then
 		print('Saved')        
-		TriggerServerEvent('updatecharacterclothes', appearance)
+		TriggerServerEvent('Player:SaveCharacterOutfit', appearance)
 		else
 		print('Canceled')
 		end
 	end, config)
 end
-
