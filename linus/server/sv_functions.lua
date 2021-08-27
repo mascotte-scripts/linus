@@ -30,7 +30,7 @@ function GetCharacterData(source, identifier)
 	lastname =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
 	gender = 	GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
 	nation = 	GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
-	dob = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier)),
+	dob = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
     }
     return CharacterData
 end
