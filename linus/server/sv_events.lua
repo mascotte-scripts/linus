@@ -1,3 +1,5 @@
+charid = 'char'
+
 RegisterNetEvent('Multichar:InitiateServerSession')
 AddEventHandler('Multichar:InitiateServerSession', function()
     local identifier = GetIdentifier(source)
@@ -11,7 +13,7 @@ end)
 
 RegisterNetEvent('Multichar:SetupCharacterData')
 AddEventHandler('Multichar:SetupCharacterData', function(CharacterData)
-    local charid = CharacterData[6]
+     charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
     print('Saving character data via KVS')
 		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
@@ -25,7 +27,7 @@ end)
 RegisterNetEvent('Player:GetCharactersOutfit')
 AddEventHandler('Player:GetCharactersOutfit', function()
     print('Player:GetCharactersOutfit')
-    local charappearance  = GetCharSkin(source)
+    local charappearance  = GetCharSkin(source, charid)
         if charappearance then 
         TriggerClientEvent('Player:LoadCharacterOutfit', source, charappearance)
         else
@@ -35,6 +37,6 @@ end)
 
 RegisterNetEvent('Player:SaveCharacterOutfit')
 AddEventHandler('Player:SaveCharacterOutfit', function(appearance)
-    local identifier = GetIdentifier(source)
-        SetResourceKvp(('users:%s:outfit_current'):format(identifier), json.encode(appearance))     
+    local identifier = GetIdentifier(source, charid)
+        SetResourceKvp(('users:%s:CharacterData:outfit'):format(identifier), json.encode(appearance))     
 end)
