@@ -18,6 +18,7 @@ AddEventHandler('Multichar:SetupCharacterData', function(CharacterData)
     local identifier = GetIdentifier(source, charid)
     firstspawn = true
         SetResourceKvp(('users:%s:'):format(identifier), identifier)
+		SetResourceKvp(('users:%s:CharID'):format(identifier), charid)
 		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
 		SetResourceKvp(('users:%s:CharacterData:lastname'):format(identifier), CharacterData[2])
 		SetResourceKvp(('users:%s:CharacterData:gender'):format(identifier), CharacterData[3])
