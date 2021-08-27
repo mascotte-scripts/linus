@@ -16,13 +16,21 @@ function GetIdentifier(source, charid)
     end
 end
 
+function GetCharSkin(source, charid)
+	local source = source
+    local identifier = GetIdentifier(source, charid)
+    local appearance =  GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
+    local charappearance = json.decode(appearance)
+	return charappearance
+end
+
 function GetCharacterData(source, identifier)
     local CharacterData = {
     firstname =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
 	lastname =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
 	gender = 	GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
 	nation = 	GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
-	dob = 	GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
+	dob = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier)),
     }
     return CharacterData
 end
