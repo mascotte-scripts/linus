@@ -16,16 +16,15 @@ RegisterNetEvent('Multichar:SetupCharacterData')
 AddEventHandler('Multichar:SetupCharacterData', function(CharacterData)
      charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
-    local existingchars = GetIdentifier(source)
     firstspawn = true
-    SaveCharacterDataToDB(source, identifier, charid, CharacterData)
+    SaveCharacterDataToDB(identifier, charid, CharacterData)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit')
 AddEventHandler('Player:GetCharactersOutfit', function()
     print('Player:GetCharactersOutfit')
     local identifier = GetIdentifier(source, charid)
-    local charappearance  = GetCharSkin(source, identifier)
+    local charappearance  = GetCharSkin(identifier)
         if firstspawn then 
             TriggerClientEvent('Player:CreateNewCharacterOutfit', source)   
             firstspawn = false
@@ -37,5 +36,5 @@ end)
 RegisterNetEvent('Player:SaveCharacterOutfit')
 AddEventHandler('Player:SaveCharacterOutfit', function(appearance)
     local identifier = GetIdentifier(source, charid)
-        SaveCharSkinToDB(source, identifier, appearance)   
+        SaveCharSkinToDB(identifier, appearance)   
 end)
