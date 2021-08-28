@@ -29,7 +29,7 @@ async function post(url, data) {
   })
 
 
-  function CharSlotSelection(module, charid) {
+  function SetCharIdToPlayer(charid) {
     if (charid == 1) {
       console.log('Char id is 1')
       activecharid = 'char1'
@@ -37,12 +37,15 @@ async function post(url, data) {
       console.log('char id is 2')
       activecharid = 'char2'
     } else if (charid == 3) {
+      console.log('char id is 3')
       activecharid == "char3"
     } else if (charid == 4) {
+      console.log('char id is 4')
       activecharid == "char4"
     }
+  }
 
-
+  function ToggleUiItemDisplay(module) {
     var x = document.getElementById(module);
     if (x.style.display === "none") {
       x.style.display = "block";
