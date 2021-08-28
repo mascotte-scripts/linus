@@ -20,8 +20,7 @@ function GetCharacterID(source, identifier)
     return GetResourceKvpString(('users:%s:CharID'):format(identifier))
 end
 
-function GetCharSkin(source, charid)
-    local identifier = GetIdentifier(source, charid)
+function GetCharSkin(source, identifier)
     local appearance =  GetResourceKvpString(('users:%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)
 	return charappearance
