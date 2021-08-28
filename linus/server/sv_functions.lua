@@ -1,3 +1,4 @@
+  
 function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
@@ -16,21 +17,21 @@ function GetIdentifier(source, charid)
     end
 end
 
-function GetCharacterID(source, identifier)
+function GetCharacterID(identifier)
     return GetResourceKvpString(('users:%s:CharID'):format(identifier))
 end
 
-function GetCharSkin(source, identifier)
+function GetCharSkin(identifier)
     local appearance =  GetResourceKvpString(('users:%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)
 	return charappearance
 end
 
-function SaveCharSkinToDB(source, identifier, appearance)
+function SaveCharSkinToDB(identifier, appearance)
 	SetResourceKvp(('users:%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
 end
 
-function GetCharacterData(source, identifier)
+function GetCharacterData(identifier)
     local CharacterData = {
     ["firstname"] =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
 	["lastname"] =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
@@ -41,7 +42,7 @@ function GetCharacterData(source, identifier)
     return CharacterData
 end
 
-function SaveCharacterDataToDB(source, identifier, charid, CharacterData)
+function SaveCharacterDataToDB(identifier, charid, CharacterData)
     print('Saving character data via KVS')
 		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
 		SetResourceKvp(('users:%s:CharacterData:lastname'):format(identifier), CharacterData[2])
