@@ -21,7 +21,6 @@ function GetCharacterID(source, identifier)
 end
 
 function GetCharSkin(source, charid)
-	local source = source
     local identifier = GetIdentifier(source, charid)
     local appearance =  GetResourceKvpString(('users:%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)
@@ -40,7 +39,6 @@ function GetCharacterData(source, identifier)
 end
 
 function SaveCharacterDataToDB(source, identifier, charid, CharacterData)
-
     print('Saving character data via KVS')
 		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
 		SetResourceKvp(('users:%s:CharacterData:lastname'):format(identifier), CharacterData[2])
