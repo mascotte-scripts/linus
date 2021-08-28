@@ -28,28 +28,28 @@
                   <span class="navbar-brand mb-0 h1" id="server-name"><h1>My Cool RP Server</h1></span>
                 </div>
               </nav>
-              <button class="btn btn-success btn-lg btn-block" id="create-character-button" type="button" onclick="CharSlotSelection('creation-form')" ><i class="bi bi-person-plus"></i> Create Character</button>
-              <button type="button" id="delete-character-button" class="btn btn-danger btn-lg btn-block" onclick="CharSlotSelection('deletion-prompt')"><i class="bi bi-person-dash"></i>  Delete Character</button>
+              <button class="btn btn-success btn-lg btn-block" id="create-character-button" type="button" onclick="ToggleUiItemDisplay('creation-form')" ><i class="bi bi-person-plus"></i> Create Character</button>
+              <button type="button" id="delete-character-button" class="btn btn-danger btn-lg btn-block" onclick="ToggleUiItemDisplay('deletion-prompt')"><i class="bi bi-person-dash"></i>  Delete Character</button>
               <button type="button" id="load-character-button" class="btn btn-primary btn-lg btn-block"><i class="bi bi-person-check"></i> Load Character</button>
   
               <div class="row">
                 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-1" onclick="CharSlotSelection('creation-form', 1)">
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-1" onclick="SetCharIdToPlayer(1), ToggleUiItemDisplay('creation-form')">
                 <h1  class="creation-form-title" id="char-slot-1">Slot 1</h1>
                 <h5  class="creation-form-title" id="char-slot-1-name">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-2" onclick="CharSlotSelection('creation-form', 2)" >
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-2" onclick="SetCharIdToPlayer(2), ToggleUiItemDisplay('creation-form')" >
                 <h1  class="creation-form-title">Slot 2</h1>
                 <h5  class="creation-form-title">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-3" onclick="CharSlotSelection('creation-form', 3)">
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-3" onclick="SetCharIdToPlayer(3), ToggleUiItemDisplay('creation-form')">
                 <h1  class="creation-form-title">Slot 3</h1>
                 <h5  class="creation-form-title">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid  w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-4" onclick="CharSlotSelection('creation-form', 4)">
+              <div class="container-fluid  w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-4" onclick="SetCharIdToPlayer(4), ToggleUiItemDisplay('creation-form')">
                 <h1  class="creation-form-title">Slot 4</h1>
                 <h5  class="creation-form-title">Slot Empty</h5>
               </div>
