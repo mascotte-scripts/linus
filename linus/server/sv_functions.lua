@@ -26,6 +26,10 @@ function GetCharSkin(source, identifier)
 	return charappearance
 end
 
+function SaveCharSkinToDB(source, identifier, appearance)
+	SetResourceKvp(('users:%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
+end
+
 function GetCharacterData(source, identifier)
     local CharacterData = {
     ["firstname"] =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
