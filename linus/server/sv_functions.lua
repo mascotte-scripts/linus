@@ -30,13 +30,26 @@ end
 
 function GetCharacterData(source, identifier)
     local CharacterData = {
-    firstname =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
-	lastname =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
-	gender = 	GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
-	nation = 	GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
-	dob = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
+    ["firstname"] =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
+	["lastname"] =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
+	["gender"] = 	GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
+	["nation"] = 	GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
+	["dob"] = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
     }
     return CharacterData
+end
+
+function SaveCharacterDataToDB(source, identifier, charid, CharacterData)
+
+    print('Saving character data via KVS')
+        SetResourceKvp(('users:%s:'):format(identifier), identifier)
+        SetResourceKvp(('users:%s:CharID'):format(identifier), charid)
+		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
+		SetResourceKvp(('users:%s:CharacterData:lastname'):format(identifier), CharacterData[2])
+		SetResourceKvp(('users:%s:CharacterData:gender'):format(identifier), CharacterData[3])
+		SetResourceKvp(('users:%s:CharacterData:nation'):format(identifier), CharacterData[4])
+		SetResourceKvp(('users:%s:CharacterData:dob'):format(identifier), CharacterData[5])
+    print('char saved')
 end
 
 function GetPlayerList()
