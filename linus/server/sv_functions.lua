@@ -1,4 +1,3 @@
-  
 function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
