@@ -20,7 +20,7 @@ AddEventHandler('Player:CreateNewCharacterOutfit', function(source)
           Citizen.Wait(300)
           CreateNewPlayerAppearance()
         firstspawn = false
-        else
+    else
         CreateNewPlayerAppearance() 
     end
 end)
@@ -35,7 +35,6 @@ end)
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
     if isSpawn then
-      
         exports.spawnmanager:spawnPlayer({
 			x = 1391.773,
 			y = 3608.716,
@@ -45,7 +44,7 @@ AddEventHandler('Player:SpawnPlayer', function(isSpawn)
 			skipFade = false
 		})
     end
-    local isSpawn = false
+    isSpawn = false
 end)
 
 RegisterNUICallback("SetCharacterData", function(CharacterData)
@@ -56,8 +55,10 @@ RegisterNUICallback("SetCharacterData", function(CharacterData)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
 end)
 
-RegisterNUICallback("LoadCharacterData", function(CharacterData)
+RegisterNUICallback("LoadCharacterData", function(activecharid)
+    local characterid = activecharid
+    TriggerServerEvent('Player:SetCharacterID', characterid)
+    isSpawn = true
     SetSelectionScreenDisplay(false)
-    TriggerServerEvent('Multichar:SetupCharacterData', CharacterData)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
 end)
