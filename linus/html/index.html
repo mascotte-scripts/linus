@@ -7,19 +7,12 @@
             <link rel="stylesheet" href="index.css" type="text/css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-         
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">         
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link href="https://fonts.cdnfonts.com/css/pricedown" rel="stylesheet">
-                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
-                <script>
-                    $( function() {
-                      $( "#creation-form" ).draggable();
-                      $( "#deletion-prompt" ).draggable();
-                    } );
-                    </script> 
+       
+  
+            
 	</head>
     <body>
        <div class="container-fluid h-100" id="site-container">
@@ -28,30 +21,26 @@
                   <span class="navbar-brand mb-0 h1" id="server-name"><h1>My Cool RP Server</h1></span>
                 </div>
               </nav>
-              <button class="btn btn-success btn-lg btn-block" id="create-character-button" type="button" onclick="ToggleUiItemDisplay('creation-form')" ><i class="bi bi-person-plus"></i> Create Character</button>
-              <button type="button" id="delete-character-button" class="btn btn-danger btn-lg btn-block" onclick="ToggleUiItemDisplay('deletion-prompt')"><i class="bi bi-person-dash"></i>  Delete Character</button>
-              <button type="button" id="load-character-button" class="btn btn-primary btn-lg btn-block"><i class="bi bi-person-check"></i> Load Character</button>
-  
               <div class="row">
                 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-1" onclick="SetCharIdToPlayer(1), ToggleUiItemDisplay('creation-form')">
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-1" onclick="SetCharIdToPlayer(1), ToggleUiItemDisplay1('creation-form')">
                 <h1  class="creation-form-title" id="char-slot-1">Slot 1</h1>
                 <h5  class="creation-form-title" id="char-slot-1-name">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-2" onclick="SetCharIdToPlayer(2), ToggleUiItemDisplay('creation-form')" >
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-2" onclick="SetCharIdToPlayer(2), ToggleUiItemDisplay2('creation-form')" >
                 <h1  class="creation-form-title">Slot 2</h1>
-                <h5  class="creation-form-title">Slot Empty</h5>
+                <h5  class="creation-form-title" id="char-slot-2-name">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-3" onclick="SetCharIdToPlayer(3), ToggleUiItemDisplay('creation-form')">
+              <div class="container-fluid w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-3" onclick="SetCharIdToPlayer(3), ToggleUiItemDisplay3('creation-form')">
                 <h1  class="creation-form-title">Slot 3</h1>
-                <h5  class="creation-form-title">Slot Empty</h5>
+                <h5  class="creation-form-title" id="char-slot-3-name">Slot Empty</h5>
               </div>
 
-              <div class="container-fluid  w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-4" onclick="SetCharIdToPlayer(4), ToggleUiItemDisplay('creation-form')">
+              <div class="container-fluid  w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded char-select" id="char-select-4" onclick="SetCharIdToPlayer(4), ToggleUiItemDisplay4('creation-form')">
                 <h1  class="creation-form-title">Slot 4</h1>
-                <h5  class="creation-form-title">Slot Empty</h5>
+                <h5  class="creation-form-title" id="char-slot-4-name">Slot Empty</h5>
               </div>
             </div>
               
@@ -345,6 +334,20 @@
                          <button type="submit" onclick="CreateCharacterData()" class="btn btn-dark mb-3 btn-block">Create</button>
                          <p class="d-flex justify-content-center" id="creation-text-credits">Created By Mascotte45 & N0tSomething</p>
                   </form>
+              </div>
+
+              <div class="container-fluid bg-light w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded" id="loadchar-form">
+                <h1 class="d-flex justify-content-center creation-form-title" id="char-slot-1-data-char">Character</h1>
+                <div class="row d-flex justify-content-between">              
+                <div class="ml-2" id="char-slot-1-data-firstname"><h4 id="char-slot-1-data-name" class="creation-form-title">Name</h4></div>
+                <div class="ml-1" id="char-slot-1-data-job"><h4 id="char-slot-1-data-job-text" class="creation-form-title ml-5">Job</h4></div>
+                <div class="ml-3 mr-1" id="char-slot-1-data-cash"><h4  class="creation-form-title">Balance</h4></div>
+              </div>
+                <div class="ml-3" id="char-slot-1-data-lastactive"><h4  class="creation-form-title d-flex justify-content-center mt-2">Last Active</h4></div>
+          
+                <button type="button" id="delete-character-button" class="btn btn-danger  btn-block"><i class="bi bi-person-dash"></i> Delete Character</button>
+                <button type="button" id="load-character-button" class="btn btn-primary btn-lg btn-block" onclick="LoadCharacterIntoGame(true)"><i class="bi bi-person-check"></i> Load Character</button>
+  
               </div>
 
               <div class="container-fluid bg-light w-25 mt-5 shadow p-3 mb-3 bg-dark text-white rounded" id="deletion-prompt">
