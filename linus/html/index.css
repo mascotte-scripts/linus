@@ -15,6 +15,12 @@ body {
     box-shadow: 7px 7px black;
 }
 
+#loadchar-form {
+    display: none;
+    background-image: url('/html/assets/popupbg.png');
+    box-shadow: 7px 7px black;
+}
+
 #creation-input-fname {
     height: 35%;
     border: none;
@@ -68,13 +74,6 @@ body {
     display: none;
 }
 
-#delete-character-button {
-    display: none;
-}
-
-#load-character-button {
-    display: none;
-}
 
 .creation-text {
     -webkit-text-stroke-width: 2px;
