@@ -38,3 +38,8 @@ AddEventHandler('Player:SaveCharacterOutfit', function(appearance)
     local identifier = GetIdentifier(source, charid)
         SaveCharSkinToDB(identifier, appearance)   
 end)
+
+RegisterNetEvent('Player:SetCharacterID')
+AddEventHandler('Player:SetCharacterID', function(characterid)
+    charid = characterid  
+end)
