@@ -36,7 +36,7 @@ RegisterNetEvent('Player:cl_SetCharacterData')
 AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, Character2Data)
   print('Set Char Data')
   Citizen.Wait(3000) -- NUI wont load right without this
-  SetSelectionScreenDisplay(true, Character1Data.FirstName, Character1Data.LastName, Character2Data.FirstName, Character2Data.LastName)
+  SetSelectionScreenDisplay(true, Character1Data, Character2Data)
 end)
 
 
