@@ -1,13 +1,13 @@
-function SetSelectionScreenDisplay(bool, firstname1, lastname1, firstname2, lastname2)
+function SetSelectionScreenDisplay(bool, Character1Data, Character2Data)
 	local isOpen = bool
 	SetNuiFocus(bool, bool)
 	SendNUIMessage({
 		type = "ui",
 		status = bool,
-		Char1InfoFName = firstname1,
-		Char1InfoLName = lastname1,
-		Char2InfoFName = firstname2,
-		Char2InfoLName = lastname2,
+		Char1InfoFName = Character1Data.FirstName,
+		Char1InfoLName = Character1Data.LastName,
+		Char2InfoFName = Character2Data.FirstName,
+		Char2InfoLName = Character2Data.LastName,
 	})
 end
 
