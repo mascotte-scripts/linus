@@ -1,4 +1,3 @@
-  
 function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
@@ -64,7 +63,7 @@ function GetCharacter2()
 
     local identifier = GetIdentifier(source, 'char2')
     print('Retrieving character data via KVS')
-    local Character1Data = { -- Perhaps table is the issue?
+    local Character2Data = { -- Perhaps table is the issue?
         FirstName = GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
         LastName = GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
         Gender = GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
