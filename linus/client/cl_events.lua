@@ -7,11 +7,10 @@ AddEventHandler('playerSpawned', function()
 end)
 
 
-RegisterNetEvent('Multichar:InitiateClientSession')
+RegisterNetEvent('Multichar:InitiateClientSession') -- function that characters should be passed to
 AddEventHandler('Multichar:InitiateClientSession', function(source)
     ShutdownLoadingScreenNui()
-    Citizen.Wait(3000) -- NUI wont load right without this
-    SetSelectionScreenDisplay(true)
+    TriggerServerEvent('Player:GetCharacterData')
 end)
 
 RegisterNetEvent('Player:CreateNewCharacterOutfit')
@@ -31,6 +30,15 @@ AddEventHandler('Player:LoadCharacterOutfit', function(source, charappearance)
   exports["fivem-appearance"]:setPlayerAppearance(source, appearance)
   print('Loaded Outfit')
 end)
+
+
+RegisterNetEvent('Player:cl_SetCharacterData')
+AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, Character2Data)
+  print('Set Char Data')
+  Citizen.Wait(3000) -- NUI wont load right without this
+  SetSelectionScreenDisplay(true, Character1Data.FirstName, Character1Data.LastName, Character2Data.FirstName, Character2Data.LastName)
+end)
+
 
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)

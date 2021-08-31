@@ -18,8 +18,14 @@ async function post(url, data) {
   
     if (item.type === 'ui') {
       const site = document.getElementById('site-container')
-      document.getElementById('char-slot-1-name').innerHTML="Bob Dole";
-      document.getElementById('char-slot-2-name').innerHTML="Rob Dole";
+      if (item.Char1InfoFName) { 
+        var nametest = item.Char1InfoFName+' '+item.Char1InfoLName;
+      document.getElementById('char-slot-1-name').innerHTML=nametest;
+      }
+      if (item.Char2InfoFName) { 
+        var nametest2 = item.Char2InfoFName+' '+item.Char2InfoLName;
+      document.getElementById('char-slot-2-name').innerHTML=nametest2;
+      }
       if (item.status == true) {
         site.style.display = 'block';
       } else {

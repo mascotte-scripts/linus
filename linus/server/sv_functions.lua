@@ -1,3 +1,4 @@
+  
 function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
@@ -30,25 +31,49 @@ function SaveCharSkinToDB(identifier, appearance)
 	SetResourceKvp(('users:%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
 end
 
-function GetCharacterData(identifier)
-    local CharacterData = {
-    ["firstname"] =	GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
-	["lastname"] =	GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
-	["gender"] = 	GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
-	["nation"] = 	GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
-	["dob"] = 	    GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier))
-    }
-    return CharacterData
-end
-
-function SaveCharacterDataToDB(identifier, charid, CharacterData)
+function SaveCharacterDataToDB(identifier, playeridentifier, CharacterData)
     print('Saving character data via KVS')
 		SetResourceKvp(('users:%s:CharacterData:firstname'):format(identifier), CharacterData[1])
 		SetResourceKvp(('users:%s:CharacterData:lastname'):format(identifier), CharacterData[2])
 		SetResourceKvp(('users:%s:CharacterData:gender'):format(identifier), CharacterData[3])
 		SetResourceKvp(('users:%s:CharacterData:nation'):format(identifier), CharacterData[4])
 		SetResourceKvp(('users:%s:CharacterData:dob'):format(identifier), CharacterData[5])
+        SetResourceKvp(('users:%s:CharacterData:job'):format(identifier), 'Unemployed')
     print('char saved')
+
+end
+
+function GetCharacter1()
+
+    local identifier = GetIdentifier(source, 'char1')
+    print('Retrieving character data via KVS')
+    local Character1Data = { -- Perhaps table is the issue?
+        FirstName = GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
+        LastName = GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
+        Gender = GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
+        Nation = GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
+        Dob = GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier)),
+}
+
+return Character1Data
+
+end
+
+
+function GetCharacter2()
+
+    local identifier = GetIdentifier(source, 'char2')
+    print('Retrieving character data via KVS')
+    local Character1Data = { -- Perhaps table is the issue?
+        FirstName = GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
+        LastName = GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
+        Gender = GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
+        Nation = GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
+        Dob = GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier)),
+}
+
+return Character2Data
+
 end
 
 function GetPlayerList()

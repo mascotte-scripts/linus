@@ -7,6 +7,7 @@ AddEventHandler('Multichar:InitiateServerSession', function()
         if not identifier then
             deferrals.done('Unknown Error. We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
+       
             TriggerClientEvent('Multichar:InitiateClientSession', source)
         end 
     end
@@ -16,8 +17,9 @@ RegisterNetEvent('Multichar:SetupCharacterData')
 AddEventHandler('Multichar:SetupCharacterData', function(CharacterData)
      charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
+    local playeridentifier = GetIdentifier(source)
     firstspawn = true
-    SaveCharacterDataToDB(identifier, charid, CharacterData)
+    SaveCharacterDataToDB(identifier, playeridentifier, CharacterData)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit')
@@ -39,7 +41,10 @@ AddEventHandler('Player:SaveCharacterOutfit', function(appearance)
         SaveCharSkinToDB(identifier, appearance)   
 end)
 
-RegisterNetEvent('Player:SetCharacterID')
-AddEventHandler('Player:SetCharacterID', function(characterid)
-    charid = characterid  
+RegisterNetEvent('Player:GetCharacterData')
+AddEventHandler('Player:GetCharacterData', function()
+   local Character1Data = GetCharacter1()
+   local Character2Data = GetCharacter2()
+    local fyad = 'fyad'
+    TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, Character1Data, Character2Data)
 end)
