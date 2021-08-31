@@ -31,4 +31,3 @@ function CreateNewPlayerAppearance()
 		end
 	end, config)
 end
-
