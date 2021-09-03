@@ -39,6 +39,7 @@ RegisterNUICallback("kick", function(playerId)
     TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
 end)
 
+
 RegisterNUICallback("spawnvehicle", function(data)
     local car = data
    TriggerServerEvent('AdminUI:CreateVehicle', car)
@@ -48,6 +49,8 @@ RegisterNUICallback("playerlist", function(data)
     chat("Alls ok, dw", {0,255,0})
     print(data)
 end)
+
+
 
 -- this cb is used as the main route to transfer data back
 -- and also where we hanld the data sent from js
