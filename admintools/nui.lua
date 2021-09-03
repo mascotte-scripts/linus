@@ -1,6 +1,7 @@
 local isOpen = false
 CreateThread(function()
   while true do
+    Wait(0)
     if isOpen then
       DisableControlAction(0, 1, display) -- LookLeftRight
       DisableControlAction(0, 2, display) -- LookUpDown
@@ -17,12 +18,35 @@ end)
 
 RegisterCommand("admin", function(source, args)
     SetDisplay(not isOpen)
+    TriggerServerEvent('Admin:RequestPlayerList')
 end)
 
 --very important cb
 RegisterNUICallback("exit", function(data)
     chat("exited", {0,255,0})
     SetDisplay(false)
+end)
+
+RegisterNUICallback("ban", function(playerId)
+    local reason = "fuck u and die"
+    local type = 'ban'
+    TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
+end)
+
+RegisterNUICallback("kick", function(playerId)
+    local reason = "fuck u and die"
+    local type = 'kick'
+    TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
+end)
+
+RegisterNUICallback("spawnvehicle", function(data)
+    local car = data
+   TriggerServerEvent('AdminUI:CreateVehicle', car)
+end)
+
+RegisterNUICallback("playerlist", function(data)
+    chat("Alls ok, dw", {0,255,0})
+    print(data)
 end)
 
 -- this cb is used as the main route to transfer data back
@@ -56,3 +80,12 @@ function chat(str, color)
         }
     )
 end
+
+RegisterNetEvent('Admin:RecievePlayerList')
+AddEventHandler('Admin:RecievePlayerList', function(playerList)
+  local players = playerList
+  for i=1, #players do 
+print(i) -- Number online perhaps?
+print(players[i]) -- Returns players as a table
+  end
+end)
