@@ -1,4 +1,4 @@
-function post(url, data) {
+async function post(url, data) {
   fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -32,6 +32,7 @@ window.addEventListener('keyup', event => {
   }
 })
 
+
 var draggableElements = document.getElementsByClassName("draggable");
 
 // Make the DIV element draggable:
@@ -45,6 +46,7 @@ function dragElement(elmnt) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
   }
+
   
   else {
     // otherwise, move the DIV from anywhere inside the DIV:
@@ -96,9 +98,12 @@ function showhtmlmodule(module) {
 
 
   document.getElementById("admin-execute-button").addEventListener("click", function() {
-   const getinputdata = document.getElementById('command-execute-nui').value
+    
+
+    const getinputdata = document.getElementById('command-execute-nui').value
   var select = document.getElementById('inputGroupSelect01');
-  var value = select.options[select.selectedIndex].value; // en
+
+var value = select.options[select.selectedIndex].value; // en
 
     if (value == 1) { 
       post('https://admintools/ban', getinputdata);
@@ -109,5 +114,6 @@ function showhtmlmodule(module) {
     } else
 
     if (value == 6) { 
-  } else { post('https://admintools/test', {}); }
+      post('https://admintools/spawnvehicle', getinputdata); 
+    }
   });
