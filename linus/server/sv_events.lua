@@ -18,9 +18,8 @@ RegisterNetEvent('Multichar:SetupCharacterData')
 AddEventHandler('Multichar:SetupCharacterData', function(CharacterData)
      charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
-    local playeridentifier = GetIdentifier(source)
     firstspawn = true
-    SaveCharacterDataToDB(identifier, playeridentifier, CharacterData)
+    SaveCharacterDataToDB(identifier, CharacterData)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit')
@@ -65,9 +64,30 @@ end
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 
-RegisterServerCallback('pmc-test:testingAwesomeCallback', function(source)
+RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
     local identifier = GetIdentifier(source, charid)
-    local job = GetResourceKvpString(('users:%s:CharacterData:job'):format(identifier))
+    local data = GetResourceKvpString(('users:%s:CharacterData:lastlocation'):format(identifier))
+    local result = json.decode(data)
+    print(result)
+    return result -- return any
+end)
 
-    return job -- return any
+AddEventHandler('playerDropped', function ()
+    local identifier = GetIdentifier(source, charid)
+    local ped = GetPlayerPed(source)
+    local oldplayerCoords = GetEntityCoords(ped)
+    local playerCoords = json.encode(oldplayerCoords)
+    print(playerCoords)
+    SetResourceKvp(('users:%s:CharacterData:lastlocation'):format(identifier), playerCoords)
+    print('State Updated')
+end)
+  
+RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type)
+    if type == 'bank' then
+        local bankbalance = xPlayerData[9]
+    return bankbalance
+    elseif type == 'wallet' then
+        local walletbalance = xPlayerData[8]
+    return walletbalance
+    end
 end)
