@@ -4,6 +4,7 @@ firstspawn = false
 
 AddEventHandler('playerSpawned', function()
     TriggerServerEvent('Player:GetCharactersOutfit')
+    TriggerEvent('Player:InitHudAccountBalance')
 end)
 
 RegisterNetEvent('Multichar:InitiateClientSession') -- function that characters should be passed to
@@ -36,7 +37,7 @@ AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, C
   print(Character1Data)
   Citizen.Wait(3000) -- NUI wont load right without this
   if Character1Data then
-  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2], Character2Data.FirstName, Character2Data.LastName)
+  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2])--, --Character2Data[1], Character2Data[2])
   else
   SetSelectionScreenDisplay(true)
   end
@@ -45,15 +46,30 @@ end)
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
     if isSpawn then
-        exports.spawnmanager:spawnPlayer({
-			x = 1391.773,
-			y = 3608.716,
-			z = 38.942 + 0.25,
-			heading = 0.0,
+    if firstspawn then
+         print('Is first spawn') 
+         exports.spawnmanager:spawnPlayer({
+			x = -1037.6547,
+			y = -2737.7192,
+			z = 20.1693 + 0.25,
+			heading = 333.4462,
 			model = `mp_m_freemode_01`,
 			skipFade = false
 		})
-    end
+        else
+            print('Is not first spawn')
+            local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
+          --  local x,y,z = table.unpack(result)
+            exports.spawnmanager:spawnPlayer({
+                x = result.x,
+                y = result.y,
+                z = result.z + 0.25,
+                heading = 0.0,
+                model = `mp_m_freemode_01`,
+                skipFade = false
+            })
+        end
+    end       
     isSpawn = false
     Citizen.Wait(100)
 end)
@@ -83,4 +99,18 @@ RegisterNUICallback("LoadCharacterData", function(activecharid)
     isSpawn = true
     SetSelectionScreenDisplay(false)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
+end)
+
+RegisterNetEvent('Player:InitHudAccountBalance', function()
+    if firstspawn then 
+        SetHUDAccountBalance(source, 'bank', 5000)
+        SetHUDAccountBalance(source, 'wallet', 500)
+    else
+        local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
+        local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
+            SetHUDAccountBalance(source, 'bank', bankbalance)
+            SetHUDAccountBalance(source, 'wallet', walletbalance)
+        print(walletbalance)
+        print(bankbalance)
+    end
 end)
