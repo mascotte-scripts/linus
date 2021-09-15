@@ -7,7 +7,8 @@ AddEventHandler('Multichar:InitiateServerSession', function()
         if not identifier then
             deferrals.done('Unknown Error. We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
-       
+            local sourceroutebucket = GetPlayerRoutingBucket(source)
+       --     SetRoutingBucketEntityLockdownMode(sourceroutebucket, 'strict')
             TriggerClientEvent('Multichar:InitiateClientSession', source)
         end 
     end
@@ -45,6 +46,28 @@ RegisterNetEvent('Player:GetCharacterData')
 AddEventHandler('Player:GetCharacterData', function()
    local Character1Data = GetCharacter1()
    local Character2Data = GetCharacter2()
-    local fyad = 'fyad'
+    local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
     TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, Character1Data, Character2Data)
+end)
+
+RegisterNetEvent('Player:SetCharacterID')
+AddEventHandler('Player:SetCharacterID', function(characterid)
+   charid = characterid
+   if charid then
+    if charid == 'char1' then
+            xPlayerData = GetCharacter1()
+        else if charid == 'char2' then
+            xPlayerData = GetCharacter2()
+        end
+    end
+end
+  
+ TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
+end)
+
+RegisterServerCallback('pmc-test:testingAwesomeCallback', function(source)
+    local identifier = GetIdentifier(source, charid)
+    local job = GetResourceKvpString(('users:%s:CharacterData:job'):format(identifier))
+
+    return job -- return any
 end)
