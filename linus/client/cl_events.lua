@@ -6,7 +6,6 @@ AddEventHandler('playerSpawned', function()
     TriggerServerEvent('Player:GetCharactersOutfit')
 end)
 
-
 RegisterNetEvent('Multichar:InitiateClientSession') -- function that characters should be passed to
 AddEventHandler('Multichar:InitiateClientSession', function(source)
     ShutdownLoadingScreenNui()
@@ -31,14 +30,17 @@ AddEventHandler('Player:LoadCharacterOutfit', function(source, charappearance)
   print('Loaded Outfit')
 end)
 
-
 RegisterNetEvent('Player:cl_SetCharacterData')
 AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, Character2Data)
   print('Set Char Data')
+  print(Character1Data)
   Citizen.Wait(3000) -- NUI wont load right without this
-  SetSelectionScreenDisplay(true, Character1Data.FirstName, Character1Data.LastName, Character2Data.FirstName, Character2Data.LastName)
+  if Character1Data then
+  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2], Character2Data.FirstName, Character2Data.LastName)
+  else
+  SetSelectionScreenDisplay(true)
+  end
 end)
-
 
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
@@ -53,6 +55,18 @@ AddEventHandler('Player:SpawnPlayer', function(isSpawn)
 		})
     end
     isSpawn = false
+    Citizen.Wait(100)
+end)
+
+RegisterNetEvent('xPlayer:SetClientSource')
+AddEventHandler('xPlayer:SetClientSource', function(source, xPlayerData)
+    xPlayer = {
+        firstname = xPlayerData.FirstName,
+        lastname = xPlayerData.LastName,
+        gender = xPlayerData.Gender,
+        nation = xPlayerData.Nation,
+        dob = xPlayerData.Dob,
+    }
 end)
 
 RegisterNUICallback("SetCharacterData", function(CharacterData)
