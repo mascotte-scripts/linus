@@ -54,7 +54,6 @@ async function post(url, data) {
   }
 
   function ToggleUiItemDisplay1(module) {
-
     const charslot = document.getElementById('char-slot-1-name').innerHTML;
     console.log(charslot)
 
@@ -157,6 +156,10 @@ async function post(url, data) {
         CharacterData[3] = document.getElementById('creation-input-nation').value;
         CharacterData[4] = document.getElementById('creation-input-date').value;
         CharacterData[5] = activecharid;
+        CharacterData[6] = 'Unemployed'; /* Default Job as none */
+        CharacterData[7] = 500; /* Default cash */
+        CharacterData[8] = 5000; /* Default bank */
+        
             post('https://linus/SetCharacterData', CharacterData);
   }
 
