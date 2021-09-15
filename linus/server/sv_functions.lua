@@ -1,4 +1,4 @@
-function GetIdentifier(source, charid)
+  function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
             if string.match(v, 'license:') then
@@ -30,12 +30,10 @@ function SaveCharSkinToDB(identifier, appearance)
 	SetResourceKvp(('users:%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
 end
 
-function SaveCharacterDataToDB(identifier, playeridentifier, CharacterData)
-    print('Saving character data via KVS')
+function SaveCharacterDataToDB(identifier, CharacterData)
     local data = json.encode(CharacterData)
 		SetResourceKvp(('users:%s:CharacterData:chardetails'):format(identifier), data)
-    print('char saved')
-
+    print('character saved')
 end
 
 function GetCharacter1()
@@ -46,21 +44,12 @@ function GetCharacter1()
     return data
 end
 
-
 function GetCharacter2()
-
     local identifier = GetIdentifier(source, 'char2')
     print('Retrieving character data via KVS')
-    local Character2Data = { -- Perhaps table is the issue?
-        FirstName = GetResourceKvpString(('users:%s:CharacterData:firstname'):format(identifier)),
-        LastName = GetResourceKvpString(('users:%s:CharacterData:lastname'):format(identifier)),
-        Gender = GetResourceKvpString(('users:%s:CharacterData:gender'):format(identifier)),
-        Nation = GetResourceKvpString(('users:%s:CharacterData:nation'):format(identifier)),
-        Dob = GetResourceKvpString(('users:%s:CharacterData:dob'):format(identifier)),
-}
-
-return Character2Data
-
+    local chardata = GetResourceKvpString(('users:%s:CharacterData:chardetails'):format(identifier))
+    local data = json.decode(chardata)
+    return data
 end
 
 function GetPlayerList()
