@@ -20,8 +20,6 @@ function CreateNewPlayerAppearance()
 	components = true,
 	props = true,
   }
- local source = source
-  local playerid = GetPlayerFromServerId(source)
 	exports['fivem-appearance']:startPlayerCustomization(function (appearance)
 		if (appearance) then
 		print('Saved')        
