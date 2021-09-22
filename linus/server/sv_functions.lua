@@ -15,6 +15,7 @@
         end
     end
 end
+exports ('GetIdentifier', source, charid)
 
 function GetCharacterID(identifier)
     return GetResourceKvpString(('users:%s:CharID'):format(identifier))
@@ -43,6 +44,7 @@ function GetCharacter1()
     local data = json.decode(chardata)
     return data
 end
+
 
 function GetCharacter2()
     local identifier = GetIdentifier(source, 'char2')
@@ -76,3 +78,58 @@ function getPlayerFromIdentifier(identifier)
 	return -1
 end
 exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
+
+function SetStartingCash(source, identifier, account, amount)
+    if account == 'wallet' then
+    SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), amount)
+    elseif account =='bank' then
+    SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), amount)
+    else
+        print('Unknown Error! Function: SetStartingCash()')
+    end
+end
+
+function GetBalance(source, identifier, account)
+    if account == 'wallet' then
+        local balance =  GetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier))
+        return balance
+    elseif account =='bank' then
+       local balance = GetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier))
+       return balance
+    else
+        print('Unknown Error! Function: GetBalance()')
+        return nil
+    end
+end
+
+function AddAccountMoney(source, identifier, account, amount)
+    local wallet = GetBalance(source, identifier, 'wallet')
+    local bank = GetBalance(source, identifier, 'bank')
+    if account == 'wallet' then 
+            local sum = wallet + amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
+        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+    elseif account == 'bank' then
+            local sum = bank + amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
+        TriggerClientEvent('Player:UpdateHudBankBalance', source)
+    else
+        print('Unknown Error: Function AddAccountMoney()')
+    end
+end
+
+function RemoveAccountMoney(source, identifier, account, amount)
+    local wallet = GetBalance(source, identifier, 'wallet')
+    local bank = GetBalance(source, identifier, 'bank')
+    if account == 'wallet' then 
+            local sum = wallet - amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
+        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+    elseif account == 'bank' then
+            local sum = bank - amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
+        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+    else
+        print('Unknown Error: Function RemoveAccountMoney()')
+    end
+end
