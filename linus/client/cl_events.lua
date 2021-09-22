@@ -110,7 +110,15 @@ RegisterNetEvent('Player:InitHudAccountBalance', function()
         local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
             SetHUDAccountBalance(source, 'bank', bankbalance)
             SetHUDAccountBalance(source, 'wallet', walletbalance)
-        print(walletbalance)
-        print(bankbalance)
     end
+end)
+
+RegisterNetEvent('Player:UpdateHudWalletBalance', function(source)
+    local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
+    SetHUDAccountBalance(source, 'wallet', walletbalance)
+end)
+
+RegisterNetEvent('Player:UpdateHudBankBalance', function(source)
+    local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
+    SetHUDAccountBalance(source, 'bank', bankbalance)
 end)
