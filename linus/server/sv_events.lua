@@ -56,7 +56,6 @@ RegisterNetEvent('Player:SetCharacterID', function(characterid)
         end
     end
 end
-  
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 
