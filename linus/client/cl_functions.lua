@@ -31,21 +31,13 @@ function CreateNewPlayerAppearance()
 end
 
 function SetHUDAccountBalance(source, type, amount)
-	if type == 'wallet' then
-		local playerid = GetPlayerServerId(source)
-		local stringbalance = NetworkGetStringWalletBalance(playerid)
-		local intbalance = stringbalance:sub(2)
-		local sum = amount
-		local moneyType = wallet
-		StatSetInt(GetHashKey("MP0_WALLET_BALANCE"), math.floor(sum), true)
-	elseif type == 'bank' then
-		local playerid = GetPlayerFromServerId()
-		local stringbalance = NetworkGetStringBankBalance(playerid)
-		local intbalance = stringbalance:sub(2)
-		local sum = amount
-		local moneyType = bank
-		StatSetInt(GetHashKey("BANK_BALANCE"), math.floor(sum), true)
-	else
-		print('An unknown error occured while attempting to finding this account')
-	end
+    if type == 'wallet' then
+        local sum = amount
+        StatSetInt(GetHashKey("MP0_WALLET_BALANCE"), math.floor(sum), true)
+    elseif type == 'bank' then
+        local sum = amount
+        StatSetInt(GetHashKey("BANK_BALANCE"), math.floor(sum), true)
+    else
+        print('An unknown error occured while attempting to find this account')
+    end
 end
