@@ -32,11 +32,13 @@ end
 
 function SetHUDAccountBalance(source, type, amount)
     if type == 'wallet' then
+		local accountwallet = `MP0_WALLET_BALANCE`
         local sum = amount
-        StatSetInt(GetHashKey("MP0_WALLET_BALANCE"), math.floor(sum), true)
+        StatSetInt(accountwallet, math.floor(sum), true)
     elseif type == 'bank' then
+		local accountbank = `BANK_BALANCE`
         local sum = amount
-        StatSetInt(GetHashKey("BANK_BALANCE"), math.floor(sum), true)
+        StatSetInt(accountbank, math.floor(sum), true)
     else
         print('An unknown error occured while attempting to find this account')
     end
