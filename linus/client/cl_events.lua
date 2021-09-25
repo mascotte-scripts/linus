@@ -46,7 +46,8 @@ end)
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
     if isSpawn then
-    if firstspawn then
+        local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
+    if firstspawn or result == nil then
          print('Is first spawn') 
          exports.spawnmanager:spawnPlayer({
 			x = -1037.6547,
