@@ -33,16 +33,21 @@ AddEventHandler('Player:LoadCharacterOutfit', function(source, charappearance)
 end)
 
 RegisterNetEvent('Player:cl_SetCharacterData')
-AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, Character2Data)
-  print('Set Char Data')
+AddEventHandler('Player:cl_SetCharacterData', function(source, CharacterData)
   Citizen.Wait(3000) -- NUI wont load right without this
-  if Character1Data and not Character2Data then
-  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2])
-  elseif Character1Data and Character2Data then 
-    SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2], Character2Data[1], Character2Data[2])
-  else
   SetSelectionScreenDisplay(true)
+  if CharacterData[1] then
+    local firstname = CharacterData[1][1]
+    local lastname = CharacterData[1][2]
+  UpdateNUICharacterDisplay(true, firstname, lastname, 'char1')
   end
+
+  if CharacterData[2] then
+    local firstname = CharacterData[2][1]
+    local lastname = CharacterData[2][2]
+  UpdateNUICharacterDisplay(true, CharacterData[2][1], CharacterData[2][2], 'char2')
+  end
+
 end)
 
 RegisterNetEvent('Player:SpawnPlayer')
