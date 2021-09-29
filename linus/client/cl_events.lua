@@ -45,7 +45,7 @@ AddEventHandler('Player:cl_SetCharacterData', function(source, CharacterData)
   if CharacterData[2] then
     local firstname = CharacterData[2][1]
     local lastname = CharacterData[2][2]
-  UpdateNUICharacterDisplay(true, CharacterData[2][1], CharacterData[2][2], 'char2')
+  UpdateNUICharacterDisplay(true, firstname, lastname, 'char2')
   end
 
 end)
