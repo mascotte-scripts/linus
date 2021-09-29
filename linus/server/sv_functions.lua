@@ -30,8 +30,7 @@ end
 SaveCharacterDataToDB = function(DbId, identifier, CharacterData)
     local data = json.encode(CharacterData)
     local job = "Unemployed"
-		SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data)
-        SetResourceKvp(('%s:CharacterData:job'):format(DbId), job)
+	return SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data) and  SetResourceKvp(('%s:CharacterData:job'):format(DbId), job) 
 end
 
 GetCharacters = function(charid)
@@ -54,9 +53,9 @@ end
 
 SetStartingCash = function(identifier, account, amount)
     if account == 'wallet' then
-    SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), amount)
+   return SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), amount)
     elseif account =='bank' then
-    SetResourceKvpInt(('%s:CharacterData:bank'):format(identifier), amount)
+   return SetResourceKvpInt(('%s:CharacterData:bank'):format(identifier), amount)
     else
         print('Unknown Error! Function: SetStartingCash()')
     end
@@ -64,11 +63,9 @@ end
 
 GetBalance = function(identifier, account)
     if account == 'wallet' then
-        local balance =  GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
-        return balance
+        return GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
     elseif account =='bank' then
-       local balance = GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
-       return balance
+       return GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
     else
         print('Unknown Error! Function: GetBalance()')
         return nil
@@ -107,33 +104,27 @@ RemoveAccountMoney = function(playerId, identifier, account, amount)
     end
 end
 
--- a sequence field using KVS
 incrementId = function()
     local nextId = GetResourceKvpInt('nextId')
     nextId = nextId + 1
     SetResourceKvpInt('nextId', nextId)
-
     return nextId
 end
-
--- Function that retrives the identifiered tied to a characters DB ID
 
 SetIdentifierToDbId = function(playerId, identifier)
     return SetResourceKvp(('%s:identifier'):format(playerId), identifier) and SetResourceKvpInt(('%s:id'):format(identifier), playerId)
 end
 
 GetIdentifierFromDbId = function(playerId)
-    local result = GetResourceKvpString(('%s:identifier'):format(playerId))
-    return result
+    return GetResourceKvpString(('%s:identifier'):format(playerId))
 end
 
 GetDbIdFromIdentifier = function(identifier)
-    local result = GetResourceKvpInt(('%s:id'):format(identifier))
-    return result
+    return GetResourceKvpInt(('%s:id'):format(identifier))
 end
 
 GetServerIdFromIdentifier = function(identifier)
-return GetResourceKvpInt(('%s:serverid'):format(identifier))
+    return GetResourceKvpInt(('%s:serverid'):format(identifier))
 end
 
 SetServerIdToIdentifier = function(identifier, svid)
@@ -147,8 +138,6 @@ end
 GetCharacterJob = function(playerId)
    return GetResourceKvpString(('%s:CharacterData:job'):format(playerId))
 end
-
--- Test Command, will be removed at some point 
 
 RegisterCommand('giveaccountmoney', function(source, args)
     if args[1] and args[2] and args[3] then
