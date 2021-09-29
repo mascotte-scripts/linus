@@ -4,6 +4,7 @@ firstspawn = false
 
 AddEventHandler('playerSpawned', function()
     TriggerServerEvent('Player:GetCharactersOutfit')
+    TriggerServerEvent('Linus:SetIdentifierToServerId')
     TriggerEvent('Player:InitHudAccountBalance')
 end)
 

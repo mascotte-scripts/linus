@@ -6,6 +6,8 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
         if not identifier then
             deferrals.done('Unknown Error. We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
+            local svid = tonumber(source)
+            SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
             SetRoutingBucketEntityLockdownMode(sourceroutebucket, 'strict')
             TriggerClientEvent('Multichar:InitiateClientSession', source)
@@ -74,7 +76,9 @@ AddEventHandler('playerDropped', function()
     local ped = GetPlayerPed(source)
     local oldplayerCoords = GetEntityCoords(ped)
     local playerCoords = json.encode(oldplayerCoords)
+    local pid = GetIdentifier(source)
     SetResourceKvp(('users:%s:CharacterData:lastlocation'):format(identifier), playerCoords)
+    SetResourceKvpInt(('%s:serverid'):format(pid), 6969) -- Intentional
 end)
   
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type)
@@ -88,4 +92,10 @@ RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type
     else
         return 'Unknown Error in callback GetAccountBalance'
     end
+end)
+
+RegisterNetEvent('Linus:SetIdentifierToServerId', function()
+local identifier = GetIdentifier(source, charid)
+local svid = tonumber(source)
+SetServerIdToIdentifier(identifier, svid)
 end)

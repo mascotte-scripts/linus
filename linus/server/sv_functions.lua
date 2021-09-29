@@ -1,4 +1,4 @@
-  function GetIdentifier(source, charid)
+function GetIdentifier(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
             if string.match(v, 'license:') then
@@ -16,10 +16,6 @@
     end
 end
 exports ('GetIdentifier', source, charid)
-
-function GetCharacterID(identifier)
-    return GetResourceKvpString(('users:%s:CharID'):format(identifier))
-end
 
 function GetCharSkin(identifier)
     local appearance =  GetResourceKvpString(('users:%s:CharacterData:outfit'):format(identifier))
@@ -102,47 +98,33 @@ function GetBalance(identifier, account)
     end
 end
 
-function AddAccountMoney(source, identifier, account, amount)
+function AddAccountMoney(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
             local sum = wallet + amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
-        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+        TriggerClientEvent('Player:UpdateHudWalletBalance', playerId)
     elseif account == 'bank' then
             local sum = bank + amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
-        TriggerClientEvent('Player:UpdateHudBankBalance', source)
+        TriggerClientEvent('Player:UpdateHudBankBalance', playerId)
     else
         print('Unknown Error: Function AddAccountMoney()')
     end
 end
 
-function GiveAccountMoney(identifier, account, amount)
-    local wallet = GetBalance(identifier, 'wallet')
-    local bank = GetBalance(identifier, 'bank')
-    if account == 'wallet' then 
-            local sum = wallet + amount
-            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
-    elseif account == 'bank' then
-            local sum = bank + amount
-            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
-    else
-        print('Unknown Error: Function GiveAccountMoney()')
-    end
-end
-
-function RemoveAccountMoney(source, identifier, account, amount)
+function RemoveAccountMoney(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
             local sum = wallet - amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
-        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+        TriggerClientEvent('Player:UpdateHudWalletBalance', playerId)
     elseif account == 'bank' then
             local sum = bank - amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
-        TriggerClientEvent('Player:UpdateHudWalletBalance', source)
+        TriggerClientEvent('Player:UpdateHudBankBalance', playerId)
     else
         print('Unknown Error: Function RemoveAccountMoney()')
     end
@@ -173,36 +155,38 @@ function GetDbIdFromIdentifier(identifier)
     return result
 end
 
+function GetServerIdFromIdentifier(identifier)
+return GetResourceKvpInt(('%s:serverid'):format(identifier))
+end
+
+function SetServerIdToIdentifier(identifier, svid)
+  SetResourceKvpInt(('%s:serverid'):format(identifier), svid)
+end
+
 -- Test Command, will be removed at some point 
 
-RegisterCommand('Data', function(source, args)
-    if not args[1] then
-        print('Usage:')
-        print('\tplayerData getId <dbId>: gets identifiers for ID')
-        print('\tplayerData getIdentifier <identifier>: gets ID for identifier')
-
-        return
-    end
-
-    if args[1] == 'getId' then
-        local id = args[2]
-        local resultfunction = GetIdentifierFromDbId(id)
-        print(resultfunction)
-    
-    elseif args[1] == 'getIdentifier' then
-        print('result:', GetDbIdFromIdentifier(args[2]))
-
-    elseif args[1] == 'giveaccountcash' then
-        local account = args[2]
-        local pid = tonumber(args[3])
-        local amount = tonumber(args[4])
-        print(account)
-        print(pid)
-        print(amount)
+RegisterCommand('giveaccountmoney', function(source, args)
+    if args[1] and args[2] and args[3] then
+        local account = args[1]
+        local pid = tonumber(args[2])
+        local amount = tonumber(args[3])
         local getIdentifier = GetIdentifierFromDbId(pid)
-        print(getIdentifier)
+        local playerId = GetServerIdFromIdentifier(getIdentifier)
+        AddAccountMoney(playerId, getIdentifier, account, amount) 
+    else
+        print('Format: /giveaccountmoney [bank/wallet] [DbId] [Amount]')
+    end
+end, true)
 
-        GiveAccountMoney(source, getIdentifier, account, amount) 
-
+RegisterCommand('removeaccountmoney', function(source, args)
+    if args[1] and args[2] and args[3] then
+        local account = args[1]
+        local pid = tonumber(args[2])
+        local amount = tonumber(args[3])
+        local getIdentifier = GetIdentifierFromDbId(pid)
+        local playerId = GetServerIdFromIdentifier(getIdentifier)
+        RemoveAccountMoney(playerId, getIdentifier, account, amount) 
+    else
+        print('Format: /removeaccountmoney [bank/wallet] [DbId] [Amount]')
     end
 end, true)
