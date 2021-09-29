@@ -1,4 +1,4 @@
-function GetIdentifier(source, charid)
+GetIdentifier = function(source, charid)
     if charid then
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
             if string.match(v, 'license:') then
@@ -17,33 +17,31 @@ function GetIdentifier(source, charid)
 end
 exports ('GetIdentifier', source, charid)
 
-function GetCharSkin(identifier)
+GetCharSkin = function(identifier)
     local appearance =  GetResourceKvpString(('%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)
 	return charappearance
 end
 
-function SaveCharSkinToDB(identifier, appearance)
+SaveCharSkinToDB = function(identifier, appearance)
 	SetResourceKvp(('%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
 end
 
-function SaveCharacterDataToDB(DbId, identifier, CharacterData)
+SaveCharacterDataToDB = function(DbId, identifier, CharacterData)
     local data = json.encode(CharacterData)
     local job = "Unemployed"
 		SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data)
         SetResourceKvp(('%s:CharacterData:job'):format(DbId), job)
-    print('character saved')
 end
 
-function GetCharacters(charid)
+GetCharacters = function(charid)
     local identifier = GetIdentifier(source, charid)
-    print('Retrieving character data via KVS')
     local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
     local data = json.decode(chardata)
     return data
 end
 
-function GetPlayerList()
+GetPlayerList = function()
     local players = GetPlayers()
     local playerList = {}
     for i = 1, #players do
@@ -54,21 +52,7 @@ function GetPlayerList()
     return playerList
 end
 
-function getPlayerFromIdentifier(identifier)
-	local players = GetPlayers()
-	for i = 1, #players do
-		local playerId = tonumber(players[i])
-		for _, id in pairs(GetPlayerIdentifiers(playerId)) do
-			if id == identifier then
-				return playerId
-			end
-		end
-	end
-	return -1
-end
-exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
-
-function SetStartingCash(identifier, account, amount)
+SetStartingCash = function(identifier, account, amount)
     if account == 'wallet' then
     SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), amount)
     elseif account =='bank' then
@@ -78,7 +62,7 @@ function SetStartingCash(identifier, account, amount)
     end
 end
 
-function GetBalance(identifier, account)
+GetBalance = function(identifier, account)
     if account == 'wallet' then
         local balance =  GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
         return balance
@@ -91,7 +75,7 @@ function GetBalance(identifier, account)
     end
 end
 
-function AddAccountMoney(playerId, identifier, account, amount)
+AddAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
@@ -107,7 +91,7 @@ function AddAccountMoney(playerId, identifier, account, amount)
     end
 end
 
-function RemoveAccountMoney(playerId, identifier, account, amount)
+RemoveAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
@@ -124,7 +108,7 @@ function RemoveAccountMoney(playerId, identifier, account, amount)
 end
 
 -- a sequence field using KVS
-function incrementId()
+incrementId = function()
     local nextId = GetResourceKvpInt('nextId')
     nextId = nextId + 1
     SetResourceKvpInt('nextId', nextId)
@@ -134,33 +118,33 @@ end
 
 -- Function that retrives the identifiered tied to a characters DB ID
 
-function SetIdentifierToDbId(playerId, identifier)
+SetIdentifierToDbId = function(playerId, identifier)
     return SetResourceKvp(('%s:identifier'):format(playerId), identifier) and SetResourceKvpInt(('%s:id'):format(identifier), playerId)
 end
 
-function GetIdentifierFromDbId(playerId)
+GetIdentifierFromDbId = function(playerId)
     local result = GetResourceKvpString(('%s:identifier'):format(playerId))
     return result
 end
 
-function GetDbIdFromIdentifier(identifier)
+GetDbIdFromIdentifier = function(identifier)
     local result = GetResourceKvpInt(('%s:id'):format(identifier))
     return result
 end
 
-function GetServerIdFromIdentifier(identifier)
+GetServerIdFromIdentifier = function(identifier)
 return GetResourceKvpInt(('%s:serverid'):format(identifier))
 end
 
-function SetServerIdToIdentifier(identifier, svid)
+SetServerIdToIdentifier = function(identifier, svid)
     return SetResourceKvpInt(('%s:serverid'):format(identifier), svid)
 end
 
-function SetCharacterJob(playerId, job)
+SetCharacterJob = function(playerId, job)
     return SetResourceKvp(('%s:CharacterData:job'):format(playerId), job)
 end
 
-function GetCharacterJob(playerId)
+GetCharacterJob = function(playerId)
    return GetResourceKvpString(('%s:CharacterData:job'):format(playerId))
 end
 
