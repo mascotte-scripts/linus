@@ -15,7 +15,7 @@ GetIdentifier = function(source, charid)
         end
     end
 end
-exports ('GetIdentifier', source, charid)
+exports('GetIdentifier', GetIdentifier)
 
 GetCharSkin = function(identifier)
     local appearance =  GetResourceKvpString(('%s:CharacterData:outfit'):format(identifier))
@@ -26,10 +26,11 @@ end
 SaveCharSkinToDB = function(identifier, appearance)
 	SetResourceKvp(('%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
 end
+exports('SaveCharSkinToDB', SaveCharSkinToDB)
 
 SaveCharacterDataToDB = function(DbId, identifier, CharacterData)
     local data = json.encode(CharacterData)
-    local job = "Unemployed"
+    local job = GetConvar("DefaultJob", "Unemployed")
 	return SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data) and  SetResourceKvp(('%s:CharacterData:job'):format(DbId), job) 
 end
 
@@ -71,6 +72,7 @@ GetBalance = function(identifier, account)
         return nil
     end
 end
+exports('GetBalance', GetBalance)
 
 AddAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
@@ -87,6 +89,7 @@ AddAccountMoney = function(playerId, identifier, account, amount)
         print('Unknown Error: Function AddAccountMoney()')
     end
 end
+exports('AddAccountMoney', AddAccountMoney)
 
 RemoveAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
@@ -103,6 +106,7 @@ RemoveAccountMoney = function(playerId, identifier, account, amount)
         print('Unknown Error: Function RemoveAccountMoney()')
     end
 end
+exports('RemoveAccountMoney', RemoveAccountMoney)
 
 incrementId = function()
     local nextId = GetResourceKvpInt('nextId')
@@ -118,14 +122,17 @@ end
 GetIdentifierFromDbId = function(playerId)
     return GetResourceKvpString(('%s:identifier'):format(playerId))
 end
+exports('GetIdentifierFromDbId', GetIdentifierFromDbId)
 
 GetDbIdFromIdentifier = function(identifier)
     return GetResourceKvpInt(('%s:id'):format(identifier))
 end
+exports('GetDbIdFromIdentifier', GetDbIdFromIdentifier)
 
 GetServerIdFromIdentifier = function(identifier)
     return GetResourceKvpInt(('%s:serverid'):format(identifier))
 end
+exports('GetServerIdFromIdentifier', GetServerIdFromIdentifier)
 
 SetServerIdToIdentifier = function(identifier, svid)
     return SetResourceKvpInt(('%s:serverid'):format(identifier), svid)
