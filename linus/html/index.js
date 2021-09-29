@@ -156,7 +156,6 @@ async function post(url, data) {
         CharacterData[3] = document.getElementById('creation-input-nation').value;
         CharacterData[4] = document.getElementById('creation-input-date').value;
         CharacterData[5] = activecharid;
-        CharacterData[6] = 'Unemployed'; /* Default Job as none */
         
             post('https://linus/SetCharacterData', CharacterData);
   }

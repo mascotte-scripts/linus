@@ -21,9 +21,9 @@ RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
     local DbId = incrementId()
     SetIdentifierToDbId(DbId, identifier)
     firstspawn = true
-    SaveCharacterDataToDB(identifier, CharacterData)
-    SetStartingCash(source, identifier, 'wallet', 5000)
-    SetStartingCash(source, identifier, 'bank', 15000)
+    SaveCharacterDataToDB(DbId, identifier, CharacterData)
+    SetStartingCash(identifier, 'wallet', 5000)
+    SetStartingCash(identifier, 'bank', 15000)
     print(DbId)
 end)
 
@@ -66,7 +66,7 @@ end)
 
 RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
     local identifier = GetIdentifier(source, charid)
-    local data = GetResourceKvpString(('users:%s:CharacterData:lastlocation'):format(identifier))
+    local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
     local result = json.decode(data)
     return result
 end)
@@ -77,17 +77,17 @@ AddEventHandler('playerDropped', function()
     local oldplayerCoords = GetEntityCoords(ped)
     local playerCoords = json.encode(oldplayerCoords)
     local pid = GetIdentifier(source)
-    SetResourceKvp(('users:%s:CharacterData:lastlocation'):format(identifier), playerCoords)
+    SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
     SetResourceKvpInt(('%s:serverid'):format(pid), 6969) -- Intentional
 end)
   
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type)
     local identifier = GetIdentifier(source, charid)
     if type == 'bank' then
-        local bankbalance = GetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier))
+        local bankbalance = GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
         return bankbalance
     elseif type == 'wallet' then
-        local walletbalance = GetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier))
+        local walletbalance = GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
          return walletbalance
     else
         return 'Unknown Error in callback GetAccountBalance'

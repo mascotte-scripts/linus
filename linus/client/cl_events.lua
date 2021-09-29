@@ -35,9 +35,8 @@ end)
 RegisterNetEvent('Player:cl_SetCharacterData')
 AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, Character2Data)
   print('Set Char Data')
-  print(Character1Data)
   Citizen.Wait(3000) -- NUI wont load right without this
-  if Character1Data then
+  if Character1Data and not Character2Data then
   SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2])
   elseif Character1Data and Character2Data then 
     SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2], Character2Data[1], Character2Data[2])
@@ -107,8 +106,8 @@ end)
 
 RegisterNetEvent('Player:InitHudAccountBalance', function()
     if firstspawn then 
-        SetHUDAccountBalance(source, 'bank', 5000)
-        SetHUDAccountBalance(source, 'wallet', 500)
+        SetHUDAccountBalance(source, 'bank', 15000)
+        SetHUDAccountBalance(source, 'wallet', 5000)
     else
         local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
         local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
