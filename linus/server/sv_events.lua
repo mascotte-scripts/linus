@@ -24,11 +24,9 @@ RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
     SaveCharacterDataToDB(DbId, identifier, CharacterData)
     SetStartingCash(identifier, 'wallet', 5000)
     SetStartingCash(identifier, 'bank', 15000)
-    print(DbId)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
-    print('Player:GetCharactersOutfit')
     local identifier = GetIdentifier(source, charid)
     local charappearance  = GetCharSkin(identifier)
         if firstspawn then 
@@ -47,7 +45,9 @@ end)
 RegisterNetEvent('Player:GetCharacterData', function()
    local char1 = GetCharacter1()
    local char2 = GetCharacter2()
-   local CharacterData = {char1, char2}
+   local char3 = GetCharacter3()
+   local char4 = GetCharacter4()
+   local CharacterData = {char1, char2, char3, char4}
     local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
     TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
 end)
@@ -55,13 +55,16 @@ end)
 RegisterNetEvent('Player:SetCharacterID', function(characterid)
    charid = characterid
    if charid then
-    if charid == 'char1' then
+        if charid == 'char1' then
             xPlayerData = GetCharacter1()
-        else if charid == 'char2' then
+        elseif charid == 'char2' then
             xPlayerData = GetCharacter2()
+        elseif charid == 'char3' then
+            xPlayerData = GetCharacter3()
+        elseif charid == 'char4' then
+            xPlayerData = GetCharacter4()
         end
     end
-end
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 

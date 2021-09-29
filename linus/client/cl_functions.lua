@@ -7,23 +7,30 @@ function SetSelectionScreenDisplay(bool)
 	})
 end
 
-function UpdateNUICharacterDisplay(bool, firstname, lastname, char)
-	print(firstname)
-	print(lastname)
-	print(char)
+function UpdateNUICharacterDisplay(firstname, lastname, char)
 	if char == 'char1' then
 		SendNUIMessage({
 			type = "ui",
-			status = bool,
 			Char1Name = firstname or '',
 			Char1LastName = lastname or '',
 		})
 	elseif char =="char2" then 
 		SendNUIMessage({
 			type = "ui",
-			status = bool,
 			Char2Name = firstname or '',
 			Char2LastName = lastname or '',
+		})
+	elseif char =="char3" then 
+		SendNUIMessage({
+			type = "ui",
+			Char3Name = firstname or '',
+			Char3LastName = lastname or '',
+		})
+	elseif char =="char4" then 
+		SendNUIMessage({
+			type = "ui",
+			Char4Name = firstname or '',
+			Char4LastName = lastname or '',
 		})
 	end
 end

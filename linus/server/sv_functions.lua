@@ -52,6 +52,22 @@ function GetCharacter2()
     return data
 end
 
+function GetCharacter3()
+    local identifier = GetIdentifier(source, 'char3')
+    print('Retrieving character data via KVS')
+    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
+    local data = json.decode(chardata)
+    return data
+end
+
+function GetCharacter4()
+    local identifier = GetIdentifier(source, 'char4')
+    print('Retrieving character data via KVS')
+    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
+    local data = json.decode(chardata)
+    return data
+end
+
 function GetPlayerList()
     local players = GetPlayers()
     local playerList = {}

@@ -1,4 +1,4 @@
-activecharid = 'char';
+activecharid = 'char'
 
 async function post(url, data) {
     fetch(url, {
@@ -49,13 +49,13 @@ async function post(url, data) {
 
   let SetCharIdToPlayer = charid => {
     if (charid == 1) {
-      activecharid = 'char1'
-    } else if (charid == 2) {
-      activecharid = 'char2'
-    } else if (charid == 3) {
-      activecharid == "char3"
-    } else if (charid == 4) {
-      activecharid == "char4";
+      activecharid = 'char1';
+    } if (charid == 2) {
+      activecharid = 'char2';
+    } if (charid == 3) {
+      activecharid = 'char3';
+    } if (charid == 4) {
+      activecharid = 'char4';
     }
   }
 
@@ -71,7 +71,6 @@ async function post(url, data) {
     } else { 
       let loadcharbox = document.getElementById('loadchar-form');
       LoadCharacterDataOnNUI(nuislot)
-      console.log(charslot)
         if (loadcharbox.style.display === "block") {
           loadcharbox.style.display = "none";
         } else {
@@ -88,8 +87,6 @@ async function post(url, data) {
     CharacterData[3] = document.getElementById('creation-input-nation').value;
     CharacterData[4] = document.getElementById('creation-input-date').value;
     CharacterData[5] = activecharid;
-    
-        
       post('https://linus/SetCharacterData', CharacterData);
   }
 
