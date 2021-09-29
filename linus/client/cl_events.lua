@@ -63,9 +63,7 @@ end)
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
     if isSpawn then
-        --local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
     if firstspawn then
-         print('Is first spawn') 
          exports.spawnmanager:spawnPlayer({
 			x = -1037.6547,
 			y = -2737.7192,
@@ -75,9 +73,7 @@ AddEventHandler('Player:SpawnPlayer', function(isSpawn)
 			skipFade = false
 		})
         else
-            print('Is not first spawn')
             local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
-          --  local x,y,z = table.unpack(result)
             exports.spawnmanager:spawnPlayer({
                 x = result.x,
                 y = result.y,
@@ -120,15 +116,10 @@ RegisterNUICallback("LoadCharacterData", function(activecharid)
 end)
 
 RegisterNetEvent('Player:InitHudAccountBalance', function()
-    if firstspawn then 
-        SetHUDAccountBalance(source, 'bank', 15000)
-        SetHUDAccountBalance(source, 'wallet', 5000)
-    else
-        local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
-        local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
-            SetHUDAccountBalance(source, 'bank', bankbalance)
-            SetHUDAccountBalance(source, 'wallet', walletbalance)
-    end
+    local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
+    local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
+        SetHUDAccountBalance(source, 'bank', bankbalance)
+        SetHUDAccountBalance(source, 'wallet', walletbalance)
 end)
 
 RegisterNetEvent('Player:UpdateHudWalletBalance', function(source)

@@ -16,14 +16,19 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
 end)
 
 RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
-     charid = CharacterData[6]
+    charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
     local DbId = incrementId()
-    SetIdentifierToDbId(DbId, identifier)
     firstspawn = true
+    SetIdentifierToDbId(DbId, identifier)
     SaveCharacterDataToDB(DbId, identifier, CharacterData)
-    SetStartingCash(identifier, 'wallet', 5000)
-    SetStartingCash(identifier, 'bank', 15000)
+    local CashStartingBalance = GetConvar("startingWalletAmount", 0)
+    local BankStartingBalance = GetConvar("startingBankAmount", 0)
+    local a = tonumber(CashStartingBalance)
+    local b = tonumber(BankStartingBalance)
+    print(CashStartingBalance)
+    AddAccountMoney(source, identifier, 'wallet', a)
+    AddAccountMoney(source, identifier, 'bank', b)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
@@ -47,10 +52,8 @@ RegisterNetEvent('Player:GetCharacterData', function()
    local char2 = GetCharacters('char2')
    local char3 = GetCharacters('char3')
    local char4 = GetCharacters('char4')
-
-   --GetCharacters(charid)
    local CharacterData = {char1, char2, char3, char4}
-    local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
+   local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
     TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
 end)
 
@@ -90,11 +93,11 @@ end)
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type)
     local identifier = GetIdentifier(source, charid)
     if type == 'bank' then
-        local bankbalance = GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
+    local bankbalance = GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
         return bankbalance
     elseif type == 'wallet' then
-        local walletbalance = GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
-         return walletbalance
+    local walletbalance = GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
+        return walletbalance
     else
         return 'Unknown Error in callback GetAccountBalance'
     end

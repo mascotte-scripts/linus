@@ -177,4 +177,3 @@ async function post(url, data) {
       } 
   }
 } 
-    
