@@ -37,7 +37,9 @@ AddEventHandler('Player:cl_SetCharacterData', function(source, Character1Data, C
   print(Character1Data)
   Citizen.Wait(3000) -- NUI wont load right without this
   if Character1Data then
-  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2])--, --Character2Data[1], Character2Data[2])
+  SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2])
+  elseif Character1Data and Character2Data then 
+    SetSelectionScreenDisplay(true, Character1Data[1], Character1Data[2], Character2Data[1], Character2Data[2])
   else
   SetSelectionScreenDisplay(true)
   end
@@ -46,8 +48,8 @@ end)
 RegisterNetEvent('Player:SpawnPlayer')
 AddEventHandler('Player:SpawnPlayer', function(isSpawn)
     if isSpawn then
-        local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
-    if firstspawn or result == nil then
+        --local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
+    if firstspawn then
          print('Is first spawn') 
          exports.spawnmanager:spawnPlayer({
 			x = -1037.6547,

@@ -1,4 +1,4 @@
-function SetSelectionScreenDisplay(bool, firstname1, lastname1, firstname2, lastname2)
+	function SetSelectionScreenDisplay(bool, firstname1, lastname1, firstname2, lastname2)
 	local isOpen = bool
 	SetNuiFocus(bool, bool)
 	SendNUIMessage({

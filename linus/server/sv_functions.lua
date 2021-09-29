@@ -79,7 +79,7 @@ function getPlayerFromIdentifier(identifier)
 end
 exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
 
-function SetStartingCash(source, identifier, account, amount)
+function SetStartingCash(identifier, account, amount)
     if account == 'wallet' then
     SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), amount)
     elseif account =='bank' then
@@ -89,7 +89,7 @@ function SetStartingCash(source, identifier, account, amount)
     end
 end
 
-function GetBalance(source, identifier, account)
+function GetBalance(identifier, account)
     if account == 'wallet' then
         local balance =  GetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier))
         return balance
@@ -103,8 +103,8 @@ function GetBalance(source, identifier, account)
 end
 
 function AddAccountMoney(source, identifier, account, amount)
-    local wallet = GetBalance(source, identifier, 'wallet')
-    local bank = GetBalance(source, identifier, 'bank')
+    local wallet = GetBalance(identifier, 'wallet')
+    local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
             local sum = wallet + amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
@@ -118,9 +118,23 @@ function AddAccountMoney(source, identifier, account, amount)
     end
 end
 
+function GiveAccountMoney(identifier, account, amount)
+    local wallet = GetBalance(identifier, 'wallet')
+    local bank = GetBalance(identifier, 'bank')
+    if account == 'wallet' then 
+            local sum = wallet + amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
+    elseif account == 'bank' then
+            local sum = bank + amount
+            local newbalance = SetResourceKvpInt(('users:%s:CharacterData:bank'):format(identifier), sum)
+    else
+        print('Unknown Error: Function GiveAccountMoney()')
+    end
+end
+
 function RemoveAccountMoney(source, identifier, account, amount)
-    local wallet = GetBalance(source, identifier, 'wallet')
-    local bank = GetBalance(source, identifier, 'bank')
+    local wallet = GetBalance(identifier, 'wallet')
+    local bank = GetBalance(identifier, 'bank')
     if account == 'wallet' then 
             local sum = wallet - amount
             local newbalance = SetResourceKvpInt(('users:%s:CharacterData:wallet'):format(identifier), sum)
@@ -133,3 +147,62 @@ function RemoveAccountMoney(source, identifier, account, amount)
         print('Unknown Error: Function RemoveAccountMoney()')
     end
 end
+
+-- a sequence field using KVS
+function incrementId()
+    local nextId = GetResourceKvpInt('nextId')
+    nextId = nextId + 1
+    SetResourceKvpInt('nextId', nextId)
+
+    return nextId
+end
+
+-- Function that retrives the identifiered tied to a characters DB ID
+
+function SetIdentifierToDbId(playerId, identifier)
+    return SetResourceKvp(('%s:identifier'):format(playerId), identifier) and SetResourceKvpInt(('%s:id'):format(identifier), playerId)
+end
+
+function GetIdentifierFromDbId(playerId)
+    local result = GetResourceKvpString(('%s:identifier'):format(playerId))
+    return result
+end
+
+function GetDbIdFromIdentifier(identifier)
+    local result = GetResourceKvpInt(('%s:id'):format(identifier))
+    return result
+end
+
+-- Test Command, will be removed at some point 
+
+RegisterCommand('Data', function(source, args)
+    if not args[1] then
+        print('Usage:')
+        print('\tplayerData getId <dbId>: gets identifiers for ID')
+        print('\tplayerData getIdentifier <identifier>: gets ID for identifier')
+
+        return
+    end
+
+    if args[1] == 'getId' then
+        local id = args[2]
+        local resultfunction = GetIdentifierFromDbId(id)
+        print(resultfunction)
+    
+    elseif args[1] == 'getIdentifier' then
+        print('result:', GetDbIdFromIdentifier(args[2]))
+
+    elseif args[1] == 'giveaccountcash' then
+        local account = args[2]
+        local pid = tonumber(args[3])
+        local amount = tonumber(args[4])
+        print(account)
+        print(pid)
+        print(amount)
+        local getIdentifier = GetIdentifierFromDbId(pid)
+        print(getIdentifier)
+
+        GiveAccountMoney(source, getIdentifier, account, amount) 
+
+    end
+end, true)

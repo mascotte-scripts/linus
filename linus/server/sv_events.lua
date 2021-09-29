@@ -16,10 +16,13 @@ end)
 RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
      charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
+    local DbId = incrementId()
+    SetIdentifierToDbId(DbId, identifier)
     firstspawn = true
     SaveCharacterDataToDB(identifier, CharacterData)
     SetStartingCash(source, identifier, 'wallet', 5000)
     SetStartingCash(source, identifier, 'bank', 15000)
+    print(DbId)
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
