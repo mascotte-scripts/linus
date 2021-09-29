@@ -43,10 +43,12 @@ RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
 end)
 
 RegisterNetEvent('Player:GetCharacterData', function()
-   local char1 = GetCharacter1()
-   local char2 = GetCharacter2()
-   local char3 = GetCharacter3()
-   local char4 = GetCharacter4()
+   local char1 = GetCharacters('char1')
+   local char2 = GetCharacters('char2')
+   local char3 = GetCharacters('char3')
+   local char4 = GetCharacters('char4')
+
+   --GetCharacters(charid)
    local CharacterData = {char1, char2, char3, char4}
     local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
     TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
@@ -56,13 +58,13 @@ RegisterNetEvent('Player:SetCharacterID', function(characterid)
    charid = characterid
    if charid then
         if charid == 'char1' then
-            xPlayerData = GetCharacter1()
+            xPlayerData = GetCharacters('char1')
         elseif charid == 'char2' then
-            xPlayerData = GetCharacter2()
+            xPlayerData = GetCharacters('char2')
         elseif charid == 'char3' then
-            xPlayerData = GetCharacter3()
+            xPlayerData =  GetCharacters('char3')
         elseif charid == 'char4' then
-            xPlayerData = GetCharacter4()
+            xPlayerData = GetCharacters('char4')
         end
     end
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)

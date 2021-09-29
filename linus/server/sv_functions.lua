@@ -35,33 +35,8 @@ function SaveCharacterDataToDB(DbId, identifier, CharacterData)
     print('character saved')
 end
 
-function GetCharacter1()
-    local identifier = GetIdentifier(source, 'char1')
-    print('Retrieving character data via KVS')
-    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
-    local data = json.decode(chardata)
-    return data
-end
-
-
-function GetCharacter2()
-    local identifier = GetIdentifier(source, 'char2')
-    print('Retrieving character data via KVS')
-    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
-    local data = json.decode(chardata)
-    return data
-end
-
-function GetCharacter3()
-    local identifier = GetIdentifier(source, 'char3')
-    print('Retrieving character data via KVS')
-    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
-    local data = json.decode(chardata)
-    return data
-end
-
-function GetCharacter4()
-    local identifier = GetIdentifier(source, 'char4')
+function GetCharacters(charid)
+    local identifier = GetIdentifier(source, charid)
     print('Retrieving character data via KVS')
     local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
     local data = json.decode(chardata)
