@@ -46,6 +46,13 @@ RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
         SaveCharSkinToDB(identifier, appearance)
 end)
 
+local GetCharacters = function(charid)
+    local identifier = GetIdentifier(source, charid)
+    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
+    local data = json.decode(chardata)
+    return data
+end
+
 RegisterNetEvent('Player:GetCharacterData', function()
 local charslots = {
     char1 = "char1",

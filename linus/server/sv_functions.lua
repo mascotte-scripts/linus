@@ -34,13 +34,6 @@ SaveCharacterDataToDB = function(DbId, identifier, CharacterData)
 	return SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data) and  SetResourceKvp(('%s:CharacterData:job'):format(DbId), job) 
 end
 
-GetCharacters = function(charid)
-    local identifier = GetIdentifier(source, charid)
-    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
-    local data = json.decode(chardata)
-    return data
-end
-
 GetPlayerList = function()
     local players = GetPlayers()
     local playerList = {}
@@ -50,16 +43,6 @@ GetPlayerList = function()
       playerList[playerId] = name
     end
     return playerList
-end
-
-SetStartingCash = function(identifier, account, amount)
-    if account == 'wallet' then
-   return SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), amount)
-    elseif account =='bank' then
-   return SetResourceKvpInt(('%s:CharacterData:bank'):format(identifier), amount)
-    else
-        print('Unknown Error! Function: SetStartingCash()')
-    end
 end
 
 GetBalance = function(identifier, account)
