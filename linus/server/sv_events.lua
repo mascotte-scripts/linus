@@ -47,10 +47,21 @@ RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
 end)
 
 RegisterNetEvent('Player:GetCharacterData', function()
-   local char1 = GetCharacters('char1')
-   local char2 = GetCharacters('char2')
-   local char3 = GetCharacters('char3')
-   local char4 = GetCharacters('char4')
+local charslots = {
+    char1 = "char1",
+    char2 = "char2",
+    char3 = "char3",
+    char4 = "char4"
+}
+local chars = {}
+    for k,v in pairs(charslots) do
+        local a = GetCharacters(charslots[k])
+        table.insert(chars, a)
+    end
+local char1 = chars[1]
+local char2 = chars[2]
+local char3 = chars[3]
+local char4 = chars[4]
    local CharacterData = {char1, char2, char3, char4}
    local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
     TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
