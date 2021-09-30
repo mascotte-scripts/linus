@@ -39,19 +39,16 @@ RegisterNetEvent('Player:cl_SetCharacterData', function(source, CharacterData)
     local lastname = CharacterData[1][2]
   UpdateNUICharacterDisplay(firstname, lastname, 'char1')
   end
-
   if CharacterData[2] then
     local firstname = CharacterData[2][1]
     local lastname = CharacterData[2][2]
   UpdateNUICharacterDisplay(firstname, lastname, 'char2')
   end
-
   if CharacterData[3] then
     local firstname = CharacterData[3][1]
     local lastname = CharacterData[3][2]
   UpdateNUICharacterDisplay(firstname, lastname, 'char3')
   end
-
   if CharacterData[4] then
     local firstname = CharacterData[4][1]
     local lastname = CharacterData[4][2]
@@ -103,7 +100,7 @@ RegisterNUICallback("SetCharacterData", function(CharacterData)
     isSpawn = true
     firstspawn = true
     SetSelectionScreenDisplay(false)
-    TriggerServerEvent('Multichar:SetupCharacterData', CharacterData)
+    TriggerServerEvent('Multichar:SetupCharacterData', CharacterData, isSpawn)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
 end)
 

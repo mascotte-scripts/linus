@@ -4,8 +4,9 @@ firstspawn = false
 RegisterNetEvent('Multichar:InitiateServerSession', function()
     local identifier = GetIdentifier(source)
         if not identifier then
-            deferrals.done('Unknown Error. We could not find your identifier. Try restarting your FiveM game client')
+            deferrals.done('Error! We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
+            print(identifier)
             local svid = tonumber(source)
             SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
@@ -15,7 +16,8 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
     end
 end)
 
-RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
+RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn)
+    if isSpawn then
     charid = CharacterData[6]
     local identifier = GetIdentifier(source, charid)
     local DbId = incrementId()
@@ -28,17 +30,22 @@ RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData)
     local b = tonumber(BankStartingBalance)
     AddAccountMoney(source, identifier, 'wallet', a)
     AddAccountMoney(source, identifier, 'bank', b)
+    local isSpawn = false
+    else
+    print('Possible attempted cheating detected')
+    print(tonumber(source))
+    end
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
     local identifier = GetIdentifier(source, charid)
     local charappearance  = GetCharSkin(identifier)
-        if firstspawn then 
-            TriggerClientEvent('Player:CreateNewCharacterOutfit', source)   
-            firstspawn = false
-        else
-            TriggerClientEvent('Player:LoadCharacterOutfit', source, charappearance)
-        end
+    if firstspawn then 
+        TriggerClientEvent('Player:CreateNewCharacterOutfit', source)   
+        firstspawn = false
+    else
+        TriggerClientEvent('Player:LoadCharacterOutfit', source, charappearance)
+    end
 end)
 
 RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
@@ -83,7 +90,7 @@ RegisterNetEvent('Player:SetCharacterID', function(characterid)
             xPlayerData = GetCharacters('char2')
         elseif charid == 'char3' then
             xPlayerData =  GetCharacters('char3')
-        elseif charid == 'char4' then
+        else
             xPlayerData = GetCharacters('char4')
         end
     end
@@ -94,7 +101,7 @@ RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
     local identifier = GetIdentifier(source, charid)
     local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
     local result = json.decode(data)
-    return result
+    return result or nil
 end)
 
 AddEventHandler('playerDropped', function()
@@ -104,17 +111,17 @@ AddEventHandler('playerDropped', function()
     local playerCoords = json.encode(oldplayerCoords)
     local pid = GetIdentifier(source)
     SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
-    SetResourceKvpInt(('%s:serverid'):format(pid), 6969) -- Intentional
+    SetResourceKvpInt(('%s:serverid'):format(pid), nil) -- Intentional
 end)
   
-RegisterServerCallback('linus-callback:GetAccountBalance', function(source, type)
+RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)
     local identifier = GetIdentifier(source, charid)
-    if type == 'bank' then
-    local bankbalance = GetResourceKvpInt(('%s:CharacterData:bank'):format(identifier))
-        return bankbalance
-    elseif type == 'wallet' then
-    local walletbalance = GetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier))
-        return walletbalance
+    if account == 'bank' then
+       local balance = GetBalance(identifier, account)
+        return balance
+    elseif account == 'wallet' then
+        local balance = GetBalance(identifier, account)
+        return balance
     else
         return 'Unknown Error in callback GetAccountBalance'
     end
