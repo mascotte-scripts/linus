@@ -27,14 +27,14 @@ GetCharSkin = function(identifier)
 end
 
 SaveCharSkinToDB = function(identifier, appearance)
-	SetResourceKvp(('%s:CharacterData:outfit'):format(identifier), json.encode(appearance))  
+	SetResourceKvp(('%s:CharacterData:outfit'):format(identifier), json.encode(appearance))
 end
 exports('SaveCharSkinToDB', SaveCharSkinToDB)
 
 SaveCharacterDataToDB = function(DbId, identifier, CharacterData)
     local data = json.encode(CharacterData)
     local job = GetConvar("DefaultJob", "Unemployed")
-	return SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data) and  SetResourceKvp(('%s:CharacterData:job'):format(DbId), job) 
+	return SetResourceKvp(('%s:CharacterData:chardetails'):format(identifier), data) and  SetResourceKvp(('%s:CharacterData:job'):format(DbId), job)
 end
 
 GetPlayerList = function()
@@ -63,7 +63,7 @@ exports('GetBalance', GetBalance)
 AddAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
-    if account == 'wallet' then 
+    if account == 'wallet' then
             local sum = wallet + amount
             local newbalance = SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), sum)
         TriggerClientEvent('Player:UpdateHudWalletBalance', playerId)
@@ -80,7 +80,7 @@ exports('AddAccountMoney', AddAccountMoney)
 RemoveAccountMoney = function(playerId, identifier, account, amount)
     local wallet = GetBalance(identifier, 'wallet')
     local bank = GetBalance(identifier, 'bank')
-    if account == 'wallet' then 
+    if account == 'wallet' then
             local sum = wallet - amount
             local newbalance = SetResourceKvpInt(('%s:CharacterData:wallet'):format(identifier), sum)
         TriggerClientEvent('Player:UpdateHudWalletBalance', playerId)
@@ -109,7 +109,7 @@ function getAllPlayerIdentifiers(netId, temporary)
     local identifiers = {}
 
     for i = 1, GetNumPlayerIdentifiers(netId) - 1 do
-      local raw = GetPlayerIdentifier(i)
+      local raw = GetPlayerIdentifier(netId, i)
       local idx, value = raw:match("^([^:]+):(.+)$")
 
       if idx ~= 'ip' then
@@ -183,7 +183,7 @@ RegisterCommand('giveaccountmoney', function(source, args)
         local amount = tonumber(args[3])
         local getIdentifier = GetIdentifierFromDbId(pid)
         local playerId = GetServerIdFromIdentifier(getIdentifier)
-        AddAccountMoney(playerId, getIdentifier, account, amount) 
+        AddAccountMoney(playerId, getIdentifier, account, amount)
     else
         print('Invalid Usage - Format: /giveaccountmoney [bank/wallet] [DbId] [Amount]')
     end
@@ -196,7 +196,7 @@ RegisterCommand('removeaccountmoney', function(source, args)
         local amount = tonumber(args[3])
         local getIdentifier = GetIdentifierFromDbId(pid)
         local playerId = GetServerIdFromIdentifier(getIdentifier)
-        RemoveAccountMoney(playerId, getIdentifier, account, amount) 
+        RemoveAccountMoney(playerId, getIdentifier, account, amount)
     else
         print('Invalid Usage - Format: /removeaccountmoney [bank/wallet] [DbId] [Amount]')
     end
