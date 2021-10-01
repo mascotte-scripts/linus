@@ -12,7 +12,7 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
             local sourceroutebucket = GetPlayerRoutingBucket(source)
             SetRoutingBucketEntityLockdownMode(sourceroutebucket, 'strict')
             TriggerClientEvent('Multichar:InitiateClientSession', source)
-        end 
+        end
     end
 end)
 
@@ -40,8 +40,8 @@ end)
 RegisterNetEvent('Player:GetCharactersOutfit', function()
     local identifier = GetIdentifier(source, charid)
     local charappearance  = GetCharSkin(identifier)
-    if firstspawn then 
-        TriggerClientEvent('Player:CreateNewCharacterOutfit', source)   
+    if firstspawn then
+        TriggerClientEvent('Player:CreateNewCharacterOutfit', source)
         firstspawn = false
     else
         TriggerClientEvent('Player:LoadCharacterOutfit', source, charappearance)
@@ -60,25 +60,26 @@ local GetCharacters = function(charid)
     return data
 end
 
+-- Linus:MultiCharacter:RequestCharacterData
 RegisterNetEvent('Player:GetCharacterData', function()
-local charslots = {
-    char1 = "char1",
-    char2 = "char2",
-    char3 = "char3",
-    char4 = "char4"
-}
-local chars = {}
-    for k,v in pairs(charslots) do
-        local a = GetCharacters(charslots[k])
-        table.insert(chars, a)
+  local license = IDENTIFIER_CACHE[netId].license
+  local source = source
+  local characterData = {}
+
+  for i = 1, GetConvarInt('Multicharacter:MaxCharacterCount', 4) do
+
+    -- "license:char:charNum"
+    local data = GetResourceKvpString('%s:CharacterData:chardetails'):format(license)
+
+    if data then
+      characterData[i] = json.decode(data)
+    else
+      break
     end
-local char1 = chars[1]
-local char2 = chars[2]
-local char3 = chars[3]
-local char4 = chars[4]
-   local CharacterData = {char1, char2, char3, char4}
-   local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
-    TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
+  end
+
+  -- Linus:MultiCharacter:PutCharacterData
+  TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, characterData)
 end)
 
 RegisterNetEvent('Player:SetCharacterID', function(characterid)
@@ -113,7 +114,7 @@ AddEventHandler('playerDropped', function()
     SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
     SetResourceKvpInt(('%s:serverid'):format(pid), nil) -- Intentional
 end)
-  
+
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)
     local identifier = GetIdentifier(source, charid)
     if account == 'bank' then
@@ -131,4 +132,9 @@ RegisterNetEvent('Linus:SetIdentifierToServerId', function()
 local identifier = GetIdentifier(source, charid)
 local svid = tonumber(source)
 SetServerIdToIdentifier(identifier, svid)
+end)
+
+AddEventHandler('playerJoining', function()
+  -- Cache player identifiers right away for internel use
+  getAllPlayerIdentifiers(source, false)
 end)
