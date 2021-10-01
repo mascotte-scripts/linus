@@ -1,3 +1,5 @@
+IDENTIFIER_CACHE = {}
+
 GetIdentifier = function(source, charid)
     local identifierType = GetConvar('identifierType','license:')
     if charid then
@@ -98,6 +100,50 @@ incrementId = function()
     SetResourceKvpInt('nextId', nextId)
     return nextId
 end
+
+-- @param netId | number | players serverId
+-- @parma temporary | bool | if the netId is temporary ie assigned during playerConnecting
+-- @return table | A table containg the specified players identifiers exclduing ip
+function getAllPlayerIdentifiers(netId, temporary)
+  if not IDENTIFIER_CACHE[netId] then
+    local identifiers = {}
+
+    for i = 1, GetNumPlayerIdentifiers(netId) - 1 do
+      local raw = GetPlayerIdentifier(i)
+      local idx, value = raw:match("^([^:]+):(.+)$")
+
+      if idx ~= 'ip' then
+        identifiers[idx] = value
+      end
+    end
+
+    if temporary then
+      return identifiers
+    end
+
+    IDENTIFIER_CACHE[netId] = identifiers
+  end
+
+  return IDENTIFIER_CACHE[netId]
+end
+exports('getAllPlayerIdentifiers', 'getAllPlayerIdentifiers')
+
+-- @param identifier | string | raw identifier without suffix ie: suffix:identifier
+-- @return netId | number | player netId or -1 if no player is found
+function getPlayerFromIdentifier(identifier)
+	local players = GetPlayers()
+	for i = 1, #players do
+		local playerId = tonumber(players[i])
+		for _, id in pairs(IDENTIFIER_CACHE[playerId]) do
+			if id == identifier then
+				return playerId
+			end
+		end
+	end
+	return -1
+end
+exports('getPlayerFromIdentifier', 'getPlayerByIdentifier')
+
 
 SetIdentifierToDbId = function(playerId, identifier)
     return SetResourceKvp(('%s:identifier'):format(playerId), identifier) and SetResourceKvpInt(('%s:id'):format(identifier), playerId)
