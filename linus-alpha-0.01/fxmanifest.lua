@@ -1,10 +1,8 @@
 fx_version "cerulean"
 games { "gta5" }
-
-author "Matias Salas"
-description "Zombie Survival RPG Framework"
-version "0.7.2"
-
+author "Mascotte45 â N0tSomething"
+description "Roleplay framework"
+version "0.0.1"
 
 client_script {
     "Config/Global.lua",
@@ -25,8 +23,6 @@ server_script {
     "Root/Server/Functions.lua",
     "Root/Server/Main.lua"
 }
-
-
 
 ui_page "NUI/Main.html"
 
