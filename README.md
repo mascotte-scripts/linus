@@ -6,8 +6,8 @@ Code contains alot of unfinished functions
 
 ## To-Do List (Updated Soon)
 
-- Create a players table for cached data
-- Create a trello for ease of access
-- Convert multiplayercash/bank balance from a string to an int
-- Create initial multiplayercash/bank data with SetResourceKvpInt to prevent nill error when getting a new players balance using GetResourceKvpInt
-- Add more convars to existing functions
+- Fix Current Issues
+- Create Inventory System
+- Attempt to improve the native weapon loadout functionality
+- Clean up HTML/JS
+- Modulate Code (90% Complete)
