@@ -10,7 +10,7 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
             local svid = tonumber(source)
             SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
-            SetRoutingBucketEntityLockdownMode(sourceroutebucket, 'strict')
+            SetRoutingBucketEntityLockdownMode(sourceroutebucket, GetConvar("sv_entityLockdown ", "strict"))
             TriggerClientEvent('Multichar:InitiateClientSession', source)
         end
     end
