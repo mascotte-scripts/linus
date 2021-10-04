@@ -11,3 +11,6 @@ Code contains alot of unfinished functions
 - Attempt to improve the native weapon loadout functionality
 - Clean up HTML/JS
 - Modulate Code (90% Complete)
+- Stats
+- Donator/VIP functionality for server owners?
+- Modules such as jobs, weather and time sync - dynamic weather, etc
