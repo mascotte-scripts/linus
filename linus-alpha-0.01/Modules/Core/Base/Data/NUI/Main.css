@@ -1,0 +1,105 @@
+#arrow-left {
+   
+    top: 50;
+    left: 0;
+}
+
+ #creation-form {
+    display: none;
+    background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
+    box-shadow: 7px 7px rgb(124, 120, 120);
+}
+
+ #loadchar-form {
+    display: none;
+    background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
+    box-shadow: 7px 7px black;
+}
+
+ #creation-input-fname {
+    height: 35%;
+    border: none;
+    text-align: center;
+}
+
+ #creation-input-date {
+    height: 25%;
+    border: none;
+    text-align: center;
+}
+
+ #creation-input-lname {
+    height: 35%;
+    border: none;
+    text-align: center;
+}
+
+ #creation-input-gender {
+    height: 25%;
+    border: none;
+    text-align: center;
+}
+
+ #creation-input-nation {
+    height: 25%;
+    border: none;
+    text-align: center;
+}
+
+ #deletion-prompt {
+    display: none;
+    background-image: url('/Modules/Core/Base/Data/NUI//Images/popupbg.png');
+    box-shadow: 7px 7px black;
+}
+
+ .char-select {
+    display: block;
+    background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
+    box-shadow: 7px 7px black;
+    max-width: 15%;
+}
+
+ .char-select:hover {
+   border: 2px solid;
+   border-color: aliceblue;
+   box-shadow: none;
+}
+
+ #create-character-button {
+    display: none;
+}
+
+
+ .creation-text {
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    font-family: 'Pricedown Bl', sans-serif;
+    border: none;
+    opacity: 0.9;
+}
+
+ #creation-text-credits {
+    font-size: 18px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    font-family: 'Pricedown Bl', sans-serif;
+}
+
+ .creation-form-title {
+    color: white;
+    font-family: 'Pricedown Bl', sans-serif;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+ #server-name {
+    font-family: 'Pricedown Bl', sans-serif;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+ #site-container {
+    background-image: url('/Modules/Core/Base/Data/NUI/Images/bg.png');
+    position: absolute;
+    display: none;
+}
