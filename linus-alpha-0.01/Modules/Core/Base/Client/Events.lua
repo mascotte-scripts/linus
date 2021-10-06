@@ -39,22 +39,22 @@ RegisterNetEvent('Player:cl_SetCharacterData', function(source, CharacterData)
   if CharacterData[1] then
     local firstname = CharacterData[1][1]
     local lastname = CharacterData[1][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 'char1')
+  UpdateNUICharacterDisplay(firstname, lastname, 1)
   end
   if CharacterData[2] then
     local firstname = CharacterData[2][1]
     local lastname = CharacterData[2][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 'char2')
+  UpdateNUICharacterDisplay(firstname, lastname, 2)
   end
   if CharacterData[3] then
     local firstname = CharacterData[3][1]
     local lastname = CharacterData[3][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 'char3')
+  UpdateNUICharacterDisplay(firstname, lastname, 3)
   end
   if CharacterData[4] then
     local firstname = CharacterData[4][1]
     local lastname = CharacterData[4][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 'char4')
+  UpdateNUICharacterDisplay(firstname, lastname, 4)
   end
   SetSelectionScreenDisplay(true)
 end)

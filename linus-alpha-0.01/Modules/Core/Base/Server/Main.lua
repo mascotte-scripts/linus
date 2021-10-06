@@ -4,6 +4,8 @@
 
 --print(Translate("Example:Test"))
 --print(Config.Test)
+Load("Server/Events.lua")
+
 
 
 RegisterNetEvent('__pmc_callback:server')

@@ -1,66 +1,28 @@
 Load("Server/Functions.lua")
 
-RegisterCommand('giveaccountmoney', function(source, args)
-    if args[1] and args[2] and args[3] then
-        local account = args[1]
-        local pid = tonumber(args[2])
-        local amount = tonumber(args[3])
-        local getIdentifier = GetIdentifierFromDbId(pid)
-        local playerId = GetServerIdFromIdentifier(getIdentifier)
-        AddAccountMoney(playerId, getIdentifier, account, amount) 
-    else
-        print('Invalid Usage - Format: /giveaccountmoney [bank/wallet] [DbId] [Amount]')
-    end
-end, true)
-
-RegisterCommand('removeaccountmoney', function(source, args)
-    if args[1] and args[2] and args[3] then
-        local account = args[1]
-        local pid = tonumber(args[2])
-        local amount = tonumber(args[3])
-        local getIdentifier = GetIdentifierFromDbId(pid)
-        local playerId = GetServerIdFromIdentifier(getIdentifier)
-        RemoveAccountMoney(playerId, getIdentifier, account, amount) 
-    else
-        print('Invalid Usage - Format: /removeaccountmoney [bank/wallet] [DbId] [Amount]')
-    end
-end, true)
-
-RegisterCommand('setjob', function(source, args)
-    if args[1] and args[2]then
-        local pid = tonumber(args[1])
-        local job = args[2]
-        local getIdentifier = GetIdentifierFromDbId(pid)
-        local playerId = GetServerIdFromIdentifier(getIdentifier)
-        SetCharacterJob(playerId, job)
-    else
-        print('Invalid Usage - Format: /setjob [Dbid] [jobname]')
-    end
-end, true)
-
 charid = 'char'
 firstspawn = false
 
 RegisterNetEvent('Multichar:InitiateServerSession', function()
     local identifier = GetIdentifier(source)
-    local identifierType = GetConvar('identifierType','license:')
         if not identifier then
-            DropPlayer(source, 'Error! We could not find your identifier. Try restarting the FiveM Client \n Type: ' ..identifierType)
+            deferrals.done('Error! We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
-            print(identifier)
             local svid = tonumber(source)
             SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
-            SetRoutingBucketEntityLockdownMode(sourceroutebucket, 'strict')
+            SetRoutingBucketEntityLockdownMode(sourceroutebucket, GetConvar("sv_entityLockdown ", "strict"))
             TriggerClientEvent('Multichar:InitiateClientSession', source)
-        end 
+        end
     end
 end)
 
 RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn)
     if isSpawn then
     charid = CharacterData[6]
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2..':'..charid
+    IDENTIFIER_CACHE[netId].license2 = identifier
     local DbId = incrementId()
     firstspawn = true
     SetIdentifierToDbId(DbId, identifier)
@@ -79,10 +41,11 @@ RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local charappearance  = GetCharSkin(identifier)
-    if firstspawn then 
-        TriggerClientEvent('Player:CreateNewCharacterOutfit', source)   
+    if firstspawn then
+        TriggerClientEvent('Player:CreateNewCharacterOutfit', source)
         firstspawn = false
     else
         TriggerClientEvent('Player:LoadCharacterOutfit', source, charappearance)
@@ -90,73 +53,73 @@ RegisterNetEvent('Player:GetCharactersOutfit', function()
 end)
 
 RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
         SaveCharSkinToDB(identifier, appearance)
 end)
 
-local GetCharacters = function(charid)
-    local identifier = GetIdentifier(source, charid)
+
+-- Linus:MultiCharacter:RequestCharacterData
+RegisterNetEvent('Player:GetCharacterData', function()
+  local netId = tonumber(source)
+  local license = IDENTIFIER_CACHE[netId].license2
+  local characterData = {}
+
+  for i = 1, GetConvarInt("Multicharacter:MaxCharacterCount", 4) do
+    local license = license..':'..i
+    -- "license:char:charNum"
+    local data = GetResourceKvpString(('%s:CharacterData:chardetails'):format(license)) or nil
+
+    if data then
+      characterData[i] = json.decode(data)
+    else
+      break
+    end
+  end
+
+  local fad = 'fad'
+
+  -- Linus:MultiCharacter:PutCharacterData
+  TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fad, characterData)
+end)
+
+local GetCharacter = function(identifier)
     local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
     local data = json.decode(chardata)
     return data
 end
 
-RegisterNetEvent('Player:GetCharacterData', function()
-local charslots = {
-    char1 = "char1",
-    char2 = "char2",
-    char3 = "char3",
-    char4 = "char4"
-}
-local chars = {}
-    for k,v in pairs(charslots) do
-        local a = GetCharacters(charslots[k])
-        table.insert(chars, a)
-    end
-local char1 = chars[1]
-local char2 = chars[2]
-local char3 = chars[3]
-local char4 = chars[4]
-   local CharacterData = {char1, char2, char3, char4}
-   local fyad = 'fyad' -- Ironic but required, guess is an issue wit JS/LUA 
-    TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fyad, CharacterData)
-end)
-
 RegisterNetEvent('Player:SetCharacterID', function(characterid)
    charid = characterid
-   if charid then
-        if charid == 'char1' then
-            xPlayerData = GetCharacters('char1')
-        elseif charid == 'char2' then
-            xPlayerData = GetCharacters('char2')
-        elseif charid == 'char3' then
-            xPlayerData =  GetCharacters('char3')
-        else
-            xPlayerData = GetCharacters('char4')
-        end
-    end
+   local netId = tonumber(source)
+   local license = IDENTIFIER_CACHE[netId].license2..':'..charid
+    IDENTIFIER_CACHE[netId].license2 = license
+    local xPlayerData = GetCharacter(license)
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 
 RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
     local result = json.decode(data)
     return result or nil
 end)
 
 AddEventHandler('playerDropped', function()
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local ped = GetPlayerPed(source)
     local oldplayerCoords = GetEntityCoords(ped)
     local playerCoords = json.encode(oldplayerCoords)
-    local pid = GetIdentifier(source)
+    local pid = IDENTIFIER_CACHE[netId].license2
     SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
     SetResourceKvpInt(('%s:serverid'):format(pid), nil) -- Intentional
 end)
-  
+
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     if account == 'bank' then
        local balance = GetBalance(identifier, account)
         return balance
@@ -169,8 +132,13 @@ RegisterServerCallback('linus-callback:GetAccountBalance', function(source, acco
 end)
 
 RegisterNetEvent('Linus:SetIdentifierToServerId', function()
-local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+local identifier = IDENTIFIER_CACHE[netId].license2
 local svid = tonumber(source)
 SetServerIdToIdentifier(identifier, svid)
 end)
 
+AddEventHandler('playerJoining', function()
+  -- Cache player identifiers right away for internel use
+  getAllPlayerIdentifiers(source, false)
+end)

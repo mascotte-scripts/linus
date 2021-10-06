@@ -8,25 +8,25 @@ function SetSelectionScreenDisplay(bool)
 end
 
 function UpdateNUICharacterDisplay(firstname, lastname, char)
-	if char == 'char1' then
+	if char == 1 then
 		SendNUIMessage({
 			type = "ui",
 			Char1Name = firstname or '',
 			Char1LastName = lastname or '',
 		})
-	elseif char =="char2" then 
+	elseif char == 2 then 
 		SendNUIMessage({
 			type = "ui",
 			Char2Name = firstname or '',
 			Char2LastName = lastname or '',
 		})
-	elseif char =="char3" then 
+	elseif char == 3 then 
 		SendNUIMessage({
 			type = "ui",
 			Char3Name = firstname or '',
 			Char3LastName = lastname or '',
 		})
-	elseif char =="char4" then 
+	elseif char == 4 then 
 		SendNUIMessage({
 			type = "ui",
 			Char4Name = firstname or '',
