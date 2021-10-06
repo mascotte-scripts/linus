@@ -6,7 +6,6 @@ RegisterNetEvent('Multichar:InitiateServerSession', function()
         if not identifier then
             deferrals.done('Error! We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
-            print(identifier)
             local svid = tonumber(source)
             SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
@@ -57,22 +56,15 @@ RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
         SaveCharSkinToDB(identifier, appearance)
 end)
 
-local GetCharacters = function(charid)
-    local identifier = GetIdentifier(source, charid)
-    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
-    local data = json.decode(chardata)
-    return data
-end
 
 -- Linus:MultiCharacter:RequestCharacterData
 RegisterNetEvent('Player:GetCharacterData', function()
   local netId = tonumber(source)
   local license = IDENTIFIER_CACHE[netId].license2
-  print(license)
   local characterData = {}
 
-  for i = 1, GetConvarInt('Multicharacter:MaxCharacterCount', 4) do
-
+  for i = 1, GetConvarInt("Multicharacter:MaxCharacterCount", 4) do
+    local license = license..':'..i
     -- "license:char:charNum"
     local data = GetResourceKvpString(('%s:CharacterData:chardetails'):format(license)) or nil
 
@@ -89,19 +81,18 @@ RegisterNetEvent('Player:GetCharacterData', function()
   TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fad, characterData)
 end)
 
+local GetCharacter = function(identifier)
+    local chardata = GetResourceKvpString(('%s:CharacterData:chardetails'):format(identifier))
+    local data = json.decode(chardata)
+    return data
+end
+
 RegisterNetEvent('Player:SetCharacterID', function(characterid)
    charid = characterid
-   if charid then
-        if charid == 'char1' then
-            xPlayerData = GetCharacters('char1')
-        elseif charid == 'char2' then
-            xPlayerData = GetCharacters('char2')
-        elseif charid == 'char3' then
-            xPlayerData =  GetCharacters('char3')
-        else
-            xPlayerData = GetCharacters('char4')
-        end
-    end
+   local netId = tonumber(source)
+   local license = IDENTIFIER_CACHE[netId].license2..':'..charid
+    IDENTIFIER_CACHE[netId].license2 = license
+    local xPlayerData = GetCharacter(license)
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 

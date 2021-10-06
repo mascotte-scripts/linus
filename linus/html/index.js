@@ -49,13 +49,13 @@ async function post(url, data) {
 
   let SetCharIdToPlayer = charid => {
     if (charid == 1) {
-      activecharid = 'char1';
+      activecharid = 1;
     } if (charid == 2) {
-      activecharid = 'char2';
+      activecharid = 2;
     } if (charid == 3) {
-      activecharid = 'char3';
+      activecharid = 3;
     } if (charid == 4) {
-      activecharid = 'char4';
+      activecharid = 4;
     }
   }
 
