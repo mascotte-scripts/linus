@@ -12,7 +12,7 @@ GetIdentifier = function(source, charid)
     else
         for k,v in ipairs(GetPlayerIdentifiers(source)) do
             if string.match(v, identifierType) then
-                local identifier = string.gsub(v, 'license:', '')
+                local identifier = string.gsub(v, identifierType, '')
                 return identifier
             end
         end
