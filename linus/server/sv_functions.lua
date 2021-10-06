@@ -105,6 +105,7 @@ end
 -- @parma temporary | bool | if the netId is temporary ie assigned during playerConnecting
 -- @return table | A table containg the specified players identifiers exclduing ip
 function getAllPlayerIdentifiers(netId, temporary)
+    local netId = tonumber(netId)
   if not IDENTIFIER_CACHE[netId] then
     local identifiers = {}
 

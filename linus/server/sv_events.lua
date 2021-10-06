@@ -19,7 +19,9 @@ end)
 RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn)
     if isSpawn then
     charid = CharacterData[6]
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2..':'..charid
+    IDENTIFIER_CACHE[netId].license2 = identifier
     local DbId = incrementId()
     firstspawn = true
     SetIdentifierToDbId(DbId, identifier)
@@ -38,7 +40,8 @@ RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn
 end)
 
 RegisterNetEvent('Player:GetCharactersOutfit', function()
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local charappearance  = GetCharSkin(identifier)
     if firstspawn then
         TriggerClientEvent('Player:CreateNewCharacterOutfit', source)
@@ -49,7 +52,8 @@ RegisterNetEvent('Player:GetCharactersOutfit', function()
 end)
 
 RegisterNetEvent('Player:SaveCharacterOutfit', function(appearance)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
         SaveCharSkinToDB(identifier, appearance)
 end)
 
@@ -62,14 +66,15 @@ end
 
 -- Linus:MultiCharacter:RequestCharacterData
 RegisterNetEvent('Player:GetCharacterData', function()
-  local license = IDENTIFIER_CACHE[netId].license
-  local source = source
+  local netId = tonumber(source)
+  local license = IDENTIFIER_CACHE[netId].license2
+  print(license)
   local characterData = {}
 
   for i = 1, GetConvarInt('Multicharacter:MaxCharacterCount', 4) do
 
     -- "license:char:charNum"
-    local data = GetResourceKvpString('%s:CharacterData:chardetails'):format(license)
+    local data = GetResourceKvpString(('%s:CharacterData:chardetails'):format(license)) or nil
 
     if data then
       characterData[i] = json.decode(data)
@@ -78,8 +83,10 @@ RegisterNetEvent('Player:GetCharacterData', function()
     end
   end
 
+  local fad = 'fad'
+
   -- Linus:MultiCharacter:PutCharacterData
-  TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, characterData)
+  TriggerLatentClientEvent('Player:cl_SetCharacterData', source, 500, fad, characterData)
 end)
 
 RegisterNetEvent('Player:SetCharacterID', function(characterid)
@@ -99,24 +106,27 @@ RegisterNetEvent('Player:SetCharacterID', function(characterid)
 end)
 
 RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
     local result = json.decode(data)
     return result or nil
 end)
 
 AddEventHandler('playerDropped', function()
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     local ped = GetPlayerPed(source)
     local oldplayerCoords = GetEntityCoords(ped)
     local playerCoords = json.encode(oldplayerCoords)
-    local pid = GetIdentifier(source)
+    local pid = IDENTIFIER_CACHE[netId].license2
     SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
     SetResourceKvpInt(('%s:serverid'):format(pid), nil) -- Intentional
 end)
 
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)
-    local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
     if account == 'bank' then
        local balance = GetBalance(identifier, account)
         return balance
@@ -129,7 +139,8 @@ RegisterServerCallback('linus-callback:GetAccountBalance', function(source, acco
 end)
 
 RegisterNetEvent('Linus:SetIdentifierToServerId', function()
-local identifier = GetIdentifier(source, charid)
+    local netId = tonumber(source)
+local identifier = IDENTIFIER_CACHE[netId].license2
 local svid = tonumber(source)
 SetServerIdToIdentifier(identifier, svid)
 end)
