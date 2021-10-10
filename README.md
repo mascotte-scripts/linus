@@ -29,7 +29,11 @@ None
 - Version check for modules
 
 # Notes
-## Contributors 
+## Contributors & Kudos
 
-Lorem Ipsum
-@Mascotte45
+[@Mascotte45](https://github.com/mascotte-scripts) - Project Co-Leader
+[@NotSomething0](https://github.com/NotSomething0) - Project Co-Leader / Valkyrie Creator
+[@Dislaik](https://github.com/Dislaik) - Permitted use of his framework modulation format (As seen in his script: 'Zombie Outbreak')
+[@PiterMcFlebor](https://github.com/pitermcflebor) - Framework uses his pmc-callbacks script
+[@pedr0fontoura](https://github.com/pedr0fontoura) - His script 'FiveM Appearance' partially inspired and is used in this project
+[@cfx.re](https://github.com/citizenfx) - Their player data resource made the project possible from having practical examples of kvp useage and identifier caching
