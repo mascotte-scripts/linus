@@ -1,0 +1,12 @@
+--LoadModuleTranslations("Data/Locales/".. GlobalConfig.Lang ..".lua")
+--local Config = LoadModuleConfig("Data/Config.lua")
+Load("Server/sv_banmanager.lua")
+Load("Server/sv_commands.lua")
+Load("Server/sv_entities.lua")
+Load("Server/sv_events.lua")
+Load("Server/sv_explosion.lua")
+Load("Server/sv_filter.lua")
+Load("Server/sv_main.lua")
+
+--print(Translate("Example:Test"))
+--print(Config.Test)
