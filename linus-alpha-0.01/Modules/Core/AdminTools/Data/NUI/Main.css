@@ -1,0 +1,142 @@
+#admin-commands:hover {
+
+    background-color: #343a40;
+
+}
+
+#admin-commands:hover h8{
+
+    color: #FFFF;
+
+}
+
+#admin-execute-button {
+
+
+    color: #FFFF;
+    background-color: red;
+
+}
+
+#admin-execute-button:hover {
+
+
+    color: #FFFF;
+    background-color: #343a40;
+
+}
+
+#credits {
+
+    color: #FFFF;
+
+}
+
+#database-card:hover {
+
+    background-color: #343a40;
+
+}
+
+#database-card:hover h8{
+
+    color: #FFFF;
+
+}
+
+
+#mod-log:hover {
+
+    background-color: #343a40;
+
+}
+
+#mod-log:hover h8{
+
+    color: #FFFF;
+
+}
+
+#module-admin-header {
+    display: none;
+   
+    width: 400px;
+    top: 10%;
+}
+
+#module-players-header {
+    display: none;
+   
+    width: 400px;
+    left: 98%;
+    top: 10%;
+}
+
+#p-management:hover {
+
+    background-color: #343a40;
+
+}
+
+#p-management:hover h8{
+
+    color: #FFFF;
+
+}
+
+#players-execute-button {
+
+
+    color: #FFFF;
+    background-color: rgb(14, 226, 14);
+
+}
+
+#players-execute-button:hover {
+
+
+    color: #FFFF;
+    background-color: #343a40;
+
+}
+
+#ses-man:hover {
+
+    background-color: #343a40;
+
+}
+
+#ses-man:hover h8{
+
+    color: #FFFF;
+
+}
+
+#admin-site-container {
+    position: absolute;
+    display: none;
+}
+
+
+
+
+#admin-site-container-header {
+    background-color: #FFFF;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+}
+
+
+#valk:hover {
+
+    background-color: #343a40;
+
+}
+
+#valk:hover h8{
+
+    color: #FFFF;
+
+}
+
