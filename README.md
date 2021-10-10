@@ -14,3 +14,4 @@ Code contains alot of unfinished functions
 - Stats
 - Donator/VIP functionality for server owners?
 - Modules such as jobs, weather and time sync - dynamic weather, etc
+- Version check for modules
