@@ -27,3 +27,8 @@ None
 - Donator/VIP functionality for server owners?
 - Modules such as jobs, weather and time sync - dynamic weather, etc
 - Version check for modules
+
+# Notes
+## Contributors 
+
+Lorem Ipsum
