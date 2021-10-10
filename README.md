@@ -26,7 +26,7 @@ None
 - Modules such as jobs, weather and time sync - dynamic weather, etc
 - Version check for modules
 
-## Current Issues
+# Current Issues
 To be updated
 
 # Notes
