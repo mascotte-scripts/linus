@@ -14,21 +14,21 @@ window.addEventListener('message', event => {
 
 window.addEventListener('keyup', event => {
   if (event.keyCode === 27) {
-    post('https://linus/exit', {});
+    post('https://linus/admintools/exit', {});
   }
 })
 
-  document.getElementById("admin-execute-button").addEventListener("click", function() {
-    var getinputdata = document.getElementById('command-execute-nui').value
+let adminActionExecute = () => {
+  var getinputdata = document.getElementById('command-execute-nui').value
   var select = document.getElementById('inputGroupSelect01');
-var value = select.options[select.selectedIndex].value; // en
+  var value = select.options[select.selectedIndex].value; // en
     if (value == 1) { 
-      post('https://linus/AdminTools:ban', getinputdata);
+      post('https://linus/admintools/ban', getinputdata);
     } else
     if (value == 2) { 
-      post('https://linus/AdminTools:kick', getinputdata);
+      post('https://linus/admintools/kick', getinputdata);
     } else
     if (value == 6) { 
-      post('https://linus/AdminTools:spawnvehicle', getinputdata); 
+      post('https://linus/admintools/spawnvehicle', getinputdata); 
     }
-  });
+}

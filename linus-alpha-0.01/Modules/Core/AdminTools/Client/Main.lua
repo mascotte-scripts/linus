@@ -22,30 +22,30 @@ RegisterCommand("admin", function(source, args)
 end)
 
 --very important cb
-RegisterNUICallback("exit", function(data)
+RegisterNUICallback("admintools/exit", function(data)
     chat("exited", {0,255,0})
     SetDisplay(false)
 end)
 
-RegisterNUICallback("ban", function(playerId)
+RegisterNUICallback("admintools/ban", function(playerId)
     local reason = "fuck u and die"
     local type = 'ban'
     TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
 end)
 
-RegisterNUICallback("kick", function(playerId)
+RegisterNUICallback("admintools/kick", function(playerId)
     local reason = "fuck u and die"
     local type = 'kick'
     TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
 end)
 
 
-RegisterNUICallback("spawnvehicle", function(data)
+RegisterNUICallback("admintools/spawnvehicle", function(data)
     local car = data
    TriggerServerEvent('AdminUI:CreateVehicle', car)
 end)
 
-RegisterNUICallback("playerlist", function(data)
+RegisterNUICallback("admintools/playerlist", function(data)
     chat("Alls ok, dw", {0,255,0})
     print(data)
 end)
@@ -54,12 +54,12 @@ end)
 
 -- this cb is used as the main route to transfer data back
 -- and also where we hanld the data sent from js
-RegisterNUICallback("main", function(data)
+RegisterNUICallback("admintools/main", function(data)
     chat(data.text, {0,255,0})
     SetDisplay(false)
 end)
 
-RegisterNUICallback("error", function(data)
+RegisterNUICallback("admintools/error", function(data)
     chat(data.error, {255,0,0})
     SetDisplay(false)
 end)
