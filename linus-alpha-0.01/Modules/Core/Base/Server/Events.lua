@@ -4,14 +4,15 @@ charid = 'char'
 firstspawn = false
 
 RegisterNetEvent('Multichar:InitiateServerSession', function()
-    local identifier = GetIdentifier(source)
+    local netId = tonumber(source)
+    local identifier = IDENTIFIER_CACHE[netId].license2
         if not identifier then
-            deferrals.done('Error! We could not find your identifier. Try restarting your FiveM game client')
+            DropPlayer(source, 'Error! We could not find your identifier. Try restarting your FiveM game client')
         else if identifier then
             local svid = tonumber(source)
             SetServerIdToIdentifier(identifier, svid)
             local sourceroutebucket = GetPlayerRoutingBucket(source)
-            SetRoutingBucketEntityLockdownMode(sourceroutebucket, GetConvar("sv_entityLockdown ", "strict"))
+            SetRoutingBucketEntityLockdownMode(sourceroutebucket, GetConvar("sv_entityLockdown ", "relaxed"))
             TriggerClientEvent('Multichar:InitiateClientSession', source)
         end
     end
@@ -112,9 +113,8 @@ AddEventHandler('playerDropped', function()
     local ped = GetPlayerPed(source)
     local oldplayerCoords = GetEntityCoords(ped)
     local playerCoords = json.encode(oldplayerCoords)
-    local pid = IDENTIFIER_CACHE[netId].license2
     SetResourceKvp(('%s:CharacterData:lastlocation'):format(identifier), playerCoords)
-    SetResourceKvpInt(('%s:serverid'):format(pid), nil) -- Intentional
+    SetResourceKvpInt(('%s:serverid'):format(GetCharacter), nil) -- Intentional
 end)
 
 RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)

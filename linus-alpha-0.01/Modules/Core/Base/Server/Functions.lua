@@ -1,25 +1,5 @@
 IDENTIFIER_CACHE = {}
 
-GetIdentifier = function(source, charid)
-    local identifierType = GetConvar('identifierType','license:')
-    if charid then
-        for k,v in ipairs(GetPlayerIdentifiers(source)) do
-            if string.match(v, identifierType) then
-                local identifier = charid..':'..string.gsub(v, identifierType, '')
-                return identifier
-            end
-        end
-    else
-        for k,v in ipairs(GetPlayerIdentifiers(source)) do
-            if string.match(v, identifierType) then
-                local identifier = string.gsub(v, identifierType, '')
-                return identifier
-            end
-        end
-    end
-end
-exports('GetIdentifier', GetIdentifier)
-
 GetCharSkin = function(identifier)
     local appearance =  GetResourceKvpString(('%s:CharacterData:outfit'):format(identifier))
     local charappearance = json.decode(appearance)

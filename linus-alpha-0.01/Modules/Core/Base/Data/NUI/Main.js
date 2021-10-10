@@ -1,80 +1,37 @@
-activecharid = 'char'
-
-post = (url, data) => {
-    fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-  }
-
-  let obj =  document.getElementById("NuiModuleBase").innerHTML=loadPage('/Modules/Core/Base/Data/NUI/Main.html');
-
-  load_home = () => {
-
-      // Get HTML head element
-      var head = document.getElementsByTagName('HEAD')[0];
-
-         // Create new link Element
-         var link = document.createElement('link');
-
-           // set the attributes for link element 
-        link.rel = 'stylesheet'; 
-      
-        link.type = 'text/css';
-      
-        link.href = '/Modules/Core/Base/Data/NUI/Main.css'; 
-  
-        // Append link element to HTML head
-        head.appendChild(link); 
-  }
-
-  load_home();
-  
-  window.addEventListener('load', () => {
-    const site = document.getElementById('NuiModuleBase')
-    site.style.display = 'none'; 
-  })
-
-  
-  window.addEventListener('message', event => {
+window.addEventListener('message', event => {
     let item = event.data;
     if (item.type === 'ui') {
-      const site = document.getElementById('site-container')
-      if (item.Char1Name) { 
-        var CharName = item.Char1Name+' '+item.Char1LastName;
-      document.getElementById('char-slot-1-name').innerHTML=CharName;
-      }
-      if (item.Char2Name) { 
-        var CharName = item.Char2Name+' '+item.Char2LastName;
-      document.getElementById('char-slot-2-name').innerHTML=CharName;
-      }
-      if (item.Char3Name) { 
-        var CharName = item.Char3Name+' '+item.Char3LastName;
-      document.getElementById('char-slot-3-name').innerHTML=CharName;
-      }
-      if (item.Char4Name) { 
-        var CharName = item.Char4Name+' '+item.Char4LastName;
-      document.getElementById('char-slot-4-name').innerHTML=CharName;
-      }     
-      if (item.status == true) {
-        site.style.display = 'block';
-      } else {
-        site.style.display = 'none';
-      }
+      document.getElementById("NuiModuleBase").innerHTML=loadPage('/Modules/Core/Base/Data/NUI/Main.html');
+      LoadModuleCSS('/Modules/Core/Base/Data/NUI/Main.css');
+      // NUI data wont load unless we use a timeout to wait for the HTML to load
+  setTimeout(function(){  const site = document.getElementById('site-container')
+  if (item.Char1Name) { 
+    var CharName = item.Char1Name+' '+item.Char1LastName;
+  document.getElementById('char-slot-1-name').innerHTML=CharName;
+  }
+  if (item.Char2Name) { 
+    var CharName = item.Char2Name+' '+item.Char2LastName;
+  document.getElementById('char-slot-2-name').innerHTML=CharName;
+  }
+  if (item.Char3Name) { 
+    var CharName = item.Char3Name+' '+item.Char3LastName;
+  document.getElementById('char-slot-3-name').innerHTML=CharName;
+  }
+  if (item.Char4Name) { 
+    var CharName = item.Char4Name+' '+item.Char4LastName;
+  document.getElementById('char-slot-4-name').innerHTML=CharName;
+  }     
+  if (item.status == true) {
+    site.style.display = 'block';
+  } else {
+    site.style.display = 'none';
+  }},7000)
     }
-  })
+})
 
   let SetCharIdToPlayer = charid => {
-    if (charid == 1) {
-      activecharid = 1;
-    } if (charid == 2) {
-      activecharid = 2;
-    } if (charid == 3) {
-      activecharid = 3;
-    } if (charid == 4) {
-      activecharid = 4;
-    }
+  activecharid = charid
+  return activecharid
   }
 
   ToggleUiItemDisplay = (module, characterslot, nuislot) => {

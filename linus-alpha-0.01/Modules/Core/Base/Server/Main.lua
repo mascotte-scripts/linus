@@ -4,7 +4,7 @@
 
 --print(Translate("Example:Test"))
 --print(Config.Test)
-Load("Server/Events.lua")
+
 
 
 
