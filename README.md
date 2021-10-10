@@ -21,12 +21,13 @@ None
 - Fix Current Issues
 - Create Inventory System
 - Attempt to improve the native weapon loadout functionality
-- Clean up HTML/JS
-- Modulate Code (90% Complete)
 - Stats
 - Donator/VIP functionality for server owners?
 - Modules such as jobs, weather and time sync - dynamic weather, etc
 - Version check for modules
+
+## Current Issues
+To be updated
 
 # Notes
 ## Contributors & Kudos
