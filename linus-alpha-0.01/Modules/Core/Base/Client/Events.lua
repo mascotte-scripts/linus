@@ -33,28 +33,12 @@ AddEventHandler('Player:LoadCharacterOutfit', function(source, charappearance)
   exports["fivem-appearance"]:setPlayerAppearance(source, appearance)
   print('Loaded Outfit')
 end)
-
 RegisterNetEvent('Player:cl_SetCharacterData', function(source, CharacterData)
   Citizen.Wait(3000) -- NUI wont load right without this
-  if CharacterData[1] then
-    local firstname = CharacterData[1][1]
-    local lastname = CharacterData[1][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 1)
-  end
-  if CharacterData[2] then
-    local firstname = CharacterData[2][1]
-    local lastname = CharacterData[2][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 2)
-  end
-  if CharacterData[3] then
-    local firstname = CharacterData[3][1]
-    local lastname = CharacterData[3][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 3)
-  end
-  if CharacterData[4] then
-    local firstname = CharacterData[4][1]
-    local lastname = CharacterData[4][2]
-  UpdateNUICharacterDisplay(firstname, lastname, 4)
+  for i=1, #CharacterData do 
+    local firstname = CharacterData[i][1]
+    local lastname = CharacterData[i][2]
+  UpdateNUICharacterDisplay(firstname, lastname, i)
   end
   SetSelectionScreenDisplay(true)
 end)
