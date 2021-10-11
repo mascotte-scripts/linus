@@ -8,31 +8,12 @@ function SetSelectionScreenDisplay(bool)
 end
 
 function UpdateNUICharacterDisplay(firstname, lastname, char)
-	if char == 1 then
-		SendNUIMessage({
-			type = "ui",
-			Char1Name = firstname or '',
-			Char1LastName = lastname or '',
-		})
-	elseif char == 2 then 
-		SendNUIMessage({
-			type = "ui",
-			Char2Name = firstname or '',
-			Char2LastName = lastname or '',
-		})
-	elseif char == 3 then 
-		SendNUIMessage({
-			type = "ui",
-			Char3Name = firstname or '',
-			Char3LastName = lastname or '',
-		})
-	elseif char == 4 then 
-		SendNUIMessage({
-			type = "ui",
-			Char4Name = firstname or '',
-			Char4LastName = lastname or '',
-		})
-	end
+	SendNUIMessage({
+		type = "ui",
+		CharNumber = char,
+		CharName = firstname or '',
+		CharLastName = lastname or '',
+	})
 end
 
 function CreateNewPlayerAppearance()
