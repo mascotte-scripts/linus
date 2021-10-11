@@ -62,9 +62,10 @@ window.addEventListener('message', event => {
     }
   }
   
-  LoadCharacterDataOnNUI = charid => {
-    if (charid == 1) { 
-    var charslotnumber = "I"
+   LoadCharacterDataOnNUI = charid => {
+    if (charid) { 
+      var romannum = romanize(charid);
+    var charslotnumber = romannum;
     var charslotnumberHTML = '<h1 class="creation-form-title">Character '+charslotnumber+'</h1>';
       document.getElementById('char-slot-1-data-char').innerHTML=charslotnumberHTML;
 
@@ -82,59 +83,5 @@ window.addEventListener('message', event => {
       var loadedcharactive ="Last Active: 5 days";
       var charlastactiveHTML = '<h3 class="creation-form-title creation-form-title d-flex justify-content-center mt-2">'+loadedcharactive+'</h3>';
         document.getElementById('char-slot-1-data-lastactive').innerHTML=charlastactiveHTML;             
-  } else { 
-     if (charid == 2) {
-      var charslotnumber = "II"
-      var charslotnumberHTML = '<h1 class="creation-form-title">Character '+charslotnumber+'</h1>';
-        document.getElementById('char-slot-1-data-char').innerHTML=charslotnumberHTML;
-      var loadedcharname ="Rob Dole";
-      var charnameHTML = '<h3 class="creation-form-title">'+loadedcharname+'</h3>';
-        document.getElementById('char-slot-1-data-name').innerHTML=charnameHTML;
-      var loadedcharjob ="Medic";
-      var charjobHTML = '<h3 class="creation-form-title">'+loadedcharjob+'</h3>';
-        document.getElementById('char-slot-1-data-job').innerHTML=charjobHTML;
-      var loadedcharbank ="$10.00";
-      var charbankHTML = '<h3 class="creation-form-title">'+loadedcharbank+'</h3>';
-        document.getElementById('char-slot-1-data-cash').innerHTML=charbankHTML;
-        var loadedcharactive ="Last Active: 15 days";
-        var charlastactiveHTML = '<h3 class="creation-form-title creation-form-title d-flex justify-content-center mt-2">'+loadedcharactive+'</h3>';
-          document.getElementById('char-slot-1-data-lastactive').innerHTML=charlastactiveHTML;
-      } else { 
-        if (charid == 3) {
-         var charslotnumber = "III"
-         var charslotnumberHTML = '<h1 class="creation-form-title">Character '+charslotnumber+'</h1>';
-           document.getElementById('char-slot-1-data-char').innerHTML=charslotnumberHTML;
-         var loadedcharname ="Rob Dole";
-         var charnameHTML = '<h3 class="creation-form-title">'+loadedcharname+'</h3>';
-           document.getElementById('char-slot-1-data-name').innerHTML=charnameHTML;
-         var loadedcharjob ="Medic";
-         var charjobHTML = '<h3 class="creation-form-title">'+loadedcharjob+'</h3>';
-           document.getElementById('char-slot-1-data-job').innerHTML=charjobHTML;
-         var loadedcharbank ="$10.00";
-         var charbankHTML = '<h3 class="creation-form-title">'+loadedcharbank+'</h3>';
-           document.getElementById('char-slot-1-data-cash').innerHTML=charbankHTML;
-           var loadedcharactive ="Last Active: 15 days";
-           var charlastactiveHTML = '<h3 class="creation-form-title creation-form-title d-flex justify-content-center mt-2">'+loadedcharactive+'</h3>';
-             document.getElementById('char-slot-1-data-lastactive').innerHTML=charlastactiveHTML;
-         } else { 
-          if (charid == 4) {
-           var charslotnumber = "IV"
-           var charslotnumberHTML = '<h1 class="creation-form-title">Character '+charslotnumber+'</h1>';
-             document.getElementById('char-slot-1-data-char').innerHTML=charslotnumberHTML;
-           var loadedcharname ="Rob Dole";
-           var charnameHTML = '<h3 class="creation-form-title">'+loadedcharname+'</h3>';
-             document.getElementById('char-slot-1-data-name').innerHTML=charnameHTML;
-           var loadedcharjob ="Medic";
-           var charjobHTML = '<h3 class="creation-form-title">'+loadedcharjob+'</h3>';
-             document.getElementById('char-slot-1-data-job').innerHTML=charjobHTML;
-           var loadedcharbank ="$10.00";
-           var charbankHTML = '<h3 class="creation-form-title">'+loadedcharbank+'</h3>';
-             document.getElementById('char-slot-1-data-cash').innerHTML=charbankHTML;
-             var loadedcharactive ="Last Active: 15 days";
-             var charlastactiveHTML = '<h3 class="creation-form-title creation-form-title d-flex justify-content-center mt-2">'+loadedcharactive+'</h3>';
-               document.getElementById('char-slot-1-data-lastactive').innerHTML=charlastactiveHTML;
-           }
-         }
-      } 
   }
 } 
