@@ -39,3 +39,6 @@ To be updated
 [pedr0fontoura](https://github.com/pedr0fontoura) - His script 'FiveM Appearance' partially inspired and is used in this project<br/>
 [cfx.re](https://github.com/citizenfx) - Their player data resource made the project possible from having practical examples of kvp useage and identifier caching<br/>
 [Re-Ignited](https://discord.gg/FVJtvh3YMK) - Home of our support requests
+
+# Wiki
+[https://mascotte-scripts.github.io/](https://mascotte-scripts.github.io/)
