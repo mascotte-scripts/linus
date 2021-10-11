@@ -5,27 +5,16 @@ window.addEventListener('message', event => {
       LoadModuleCSS('/Modules/Core/Base/Data/NUI/Main.css');
       // NUI data wont load unless we use a timeout to wait for the HTML to load
   setTimeout(function(){  const site = document.getElementById('site-container')
-  if (item.Char1Name) { 
-    var CharName = item.Char1Name+' '+item.Char1LastName;
-  document.getElementById('char-slot-1-name').innerHTML=CharName;
-  }
-  if (item.Char2Name) { 
-    var CharName = item.Char2Name+' '+item.Char2LastName;
-  document.getElementById('char-slot-2-name').innerHTML=CharName;
-  }
-  if (item.Char3Name) { 
-    var CharName = item.Char3Name+' '+item.Char3LastName;
-  document.getElementById('char-slot-3-name').innerHTML=CharName;
-  }
-  if (item.Char4Name) { 
-    var CharName = item.Char4Name+' '+item.Char4LastName;
-  document.getElementById('char-slot-4-name').innerHTML=CharName;
-  }     
+  if (item.CharNumber) { 
+    var CharNumber = item.CharNumber;
+    var CharName = item.CharName+' '+item.CharLastName;
+  document.getElementById('char-slot-'+CharNumber+'-name').innerHTML=CharName;
+  }   
   if (item.status == true) {
     site.style.display = 'block';
   } else {
     site.style.display = 'none';
-  }},7000)
+  }},5000) // Timeout Ends Here
     }
 })
 
