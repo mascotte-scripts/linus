@@ -41,9 +41,8 @@ To be updated
 [NotSomething0](https://github.com/NotSomething0) - Project Co-Leader / Valkyrie Creator<br/>
 [Dislaik](https://github.com/Dislaik) - Permitted use of his framework modulation format (As seen in his framework: 'Zombie Outbreak')<br/>
 [PiterMcFlebor](https://github.com/pitermcflebor) - Framework uses his pmc-callbacks script<br/>
-[pedr0fontoura](https://github.com/pedr0fontoura) - His script 'FiveM Appearance' partially inspired and is used in this project<br/>
 [cfx.re](https://github.com/citizenfx) - Their player data resource made the project possible from having practical examples of kvp useage and identifier caching<br/>
-[Re-Ignited](https://discord.gg/FVJtvh3YMK) - Home of our support requests
+[Re-Ignited](https://discord.gg/FVJtvh3YMK) - Framework support
 
 # Wiki
 [https://mascotte-scripts.github.io/](https://mascotte-scripts.github.io/)
