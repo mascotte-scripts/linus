@@ -8,8 +8,8 @@ window.addEventListener('message', event => {
   if (item.CharNumber) { 
     var CharNumber = item.CharNumber;
     var CharName = item.CharName+' '+item.CharLastName;
-  document.getElementById('char-slot-'+CharNumber+'-name').innerHTML=CharName;
-  }   
+  document.getElementById('char-slot-'+CharNumber+'-name').innerText=CharName;
+  }
   if (item.status == true) {
     site.style.display = 'block';
   } else {
@@ -24,7 +24,7 @@ window.addEventListener('message', event => {
   }
 
   ToggleUiItemDisplay = (module, characterslot, nuislot) => {
-    let charslot = document.getElementById(characterslot).innerHTML;
+    let charslot = document.getElementById(characterslot).innerText;
       if (charslot == "Slot Empty") { 
         let x = document.getElementById(module);
         if (x.style.display === "block") {
@@ -62,26 +62,26 @@ window.addEventListener('message', event => {
     }
   }
   
-   LoadCharacterDataOnNUI = charid => {
+  LoadCharacterDataOnNUI = charid => {
     if (charid) { 
       var romannum = romanize(charid);
     var charslotnumber = romannum;
     var charslotnumberHTML = '<h1 class="creation-form-title">Character '+charslotnumber+'</h1>';
-      document.getElementById('char-slot-1-data-char').innerHTML=charslotnumberHTML;
+      document.getElementById('char-slot-1-data-char').innerText=charslotnumberHTML;
 
     var loadedcharname ="Bob Dole";
     var charnameHTML = '<h3 class="creation-form-title">'+loadedcharname+'</h3>';
-      document.getElementById('char-slot-1-data-name').innerHTML=charnameHTML;
+      document.getElementById('char-slot-1-data-name').innerText=charnameHTML;
 
     var loadedcharjob ="Police Officer";
     var charjobHTML = '<h3 class="creation-form-title">'+loadedcharjob+'</h3>';
-      document.getElementById('char-slot-1-data-job').innerHTML=charjobHTML;
+      document.getElementById('char-slot-1-data-job').innerText=charjobHTML;
 
     var loadedcharbank ="$0.00";
     var charbankHTML = '<h3 class="creation-form-title">'+loadedcharbank+'</h3>';
-      document.getElementById('char-slot-1-data-cash').innerHTML=charbankHTML;
+      document.getElementById('char-slot-1-data-cash').innerText=charbankHTML;
       var loadedcharactive ="Last Active: 5 days";
       var charlastactiveHTML = '<h3 class="creation-form-title creation-form-title d-flex justify-content-center mt-2">'+loadedcharactive+'</h3>';
-        document.getElementById('char-slot-1-data-lastactive').innerHTML=charlastactiveHTML;             
+        document.getElementById('char-slot-1-data-lastactive').innerText=charlastactiveHTML;             
   }
 } 
