@@ -20,7 +20,7 @@ end)
 
 RegisterNetEvent('Multichar:SetupCharacterData', function(CharacterData, isSpawn)
     if isSpawn then
-    charid = CharacterData[6]
+    charid = CharacterData.charid
     local netId = tonumber(source)
     local identifier = IDENTIFIER_CACHE[netId].license2..':'..charid
     IDENTIFIER_CACHE[netId].license2 = identifier
