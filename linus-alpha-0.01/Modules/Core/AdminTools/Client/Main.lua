@@ -70,6 +70,7 @@ function SetDisplay(bool)
     SendNUIMessage({
         type = "adminui",
         status = bool,
+        resourcename = GetCurrentResourceName()
     })
 end
 

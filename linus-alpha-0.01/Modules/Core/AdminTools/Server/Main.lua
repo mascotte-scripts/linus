@@ -5,7 +5,7 @@ AddEventHandler('Admin:RequestPlayerPunishment', function(type, playerId, reason
         if (type == 'kick') then
             DropPlayer(playerId, reason)
         else
-            exports.Valkyrie:banPlayer(playerId, reason)
+            exports.linus:banPlayer(playerId, reason)
         end
     end
 end)

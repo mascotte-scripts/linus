@@ -4,6 +4,7 @@ function SetSelectionScreenDisplay(bool)
 	SendNUIMessage({
 		type = "ui",
 		status = bool,
+		resourcename = GetCurrentResourceName()
 	})
 end
 

@@ -20,6 +20,8 @@ function waitForNUItoLoad(item) {
       } else {
           site.style.display = 'none';
       }
+
+      resourcename = item.resourcename;
   }, 1000);
 }
 
@@ -56,12 +58,12 @@ let CreateCharacterData = () => {
   CharacterData.nationality = document.getElementById('creation-input-nation').value;
   CharacterData.dob = document.getElementById('creation-input-date').value;
   CharacterData.charid = activecharid;
-  post('https://linus/Base/SetCharacterData', CharacterData);
+  post(`https://${resourcename}/Base/SetCharacterData`, CharacterData);
 }
 
 let LoadCharacterIntoGame = bool => {
   if (bool == true) {
-      post('https://linus/Base/LoadCharacterData', activecharid);
+      post(`https://${resourcename}/Base/LoadCharacterData`, activecharid);
   } else {
       console.log('Something Went Wrong..')
   }

@@ -10,11 +10,12 @@ window.addEventListener('message', event => {
           adminsite.style.display = 'none';
         }}, 3000);      
     }
+    resourcename = item.resourcename;
 })
 
 window.addEventListener('keyup', event => {
   if (event.keyCode === 27) {
-    post('https://linus/admintools/exit', {});
+    post(`https://${resourcename}/admintools/exit`, {});
   }
 })
 
@@ -23,12 +24,12 @@ let adminActionExecute = () => {
   var select = document.getElementById('inputGroupSelect01');
   var value = select.options[select.selectedIndex].value; // en
     if (value == 1) { 
-      post('https://linus/admintools/ban', getinputdata);
+      post(`https://${resourcename}/admintools/ban`, getinputdata);
     } else
     if (value == 2) { 
-      post('https://linus/admintools/kick', getinputdata);
+      post(`https://${resourcename}/admintools/kick`, getinputdata);
     } else
     if (value == 6) { 
-      post('https://linus/admintools/spawnvehicle', getinputdata); 
+      post(`https://${resourcename}/admintools/spawnvehicle`, getinputdata); 
     }
 }
