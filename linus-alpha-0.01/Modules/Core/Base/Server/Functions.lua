@@ -81,9 +81,6 @@ incrementId = function()
     return nextId
 end
 
--- @param netId | number | players serverId
--- @parma temporary | bool | if the netId is temporary ie assigned during playerConnecting
--- @return table | A table containg the specified players identifiers exclduing ip
 function getAllPlayerIdentifiers(netId, temporary)
     local netId = tonumber(netId)
   if not IDENTIFIER_CACHE[netId] then
@@ -109,8 +106,6 @@ function getAllPlayerIdentifiers(netId, temporary)
 end
 exports('getAllPlayerIdentifiers', 'getAllPlayerIdentifiers')
 
--- @param identifier | string | raw identifier without suffix ie: suffix:identifier
--- @return netId | number | player netId or -1 if no player is found
 function getPlayerFromIdentifier(identifier)
 	local players = GetPlayers()
 	for i = 1, #players do

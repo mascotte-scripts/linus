@@ -1,76 +1,75 @@
 #arrow-left {
-   
     top: 50;
     left: 0;
 }
 
- #creation-form {
+#creation-form {
     display: none;
     background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
     box-shadow: 7px 7px rgb(124, 120, 120);
 }
 
- #loadchar-form {
+#loadchar-form {
     display: none;
     background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
     box-shadow: 7px 7px black;
 }
 
- #creation-input-fname {
+#creation-input-fname {
     height: 35%;
     border: none;
     text-align: center;
 }
 
- #creation-input-date {
+#creation-input-date {
     height: 25%;
     border: none;
     text-align: center;
 }
 
- #creation-input-lname {
+#creation-input-lname {
     height: 35%;
     border: none;
     text-align: center;
 }
 
- #creation-input-gender {
+#creation-input-gender {
     height: 25%;
     border: none;
     text-align: center;
 }
 
- #creation-input-nation {
+#creation-input-nation {
     height: 25%;
     border: none;
     text-align: center;
 }
 
- #deletion-prompt {
+#deletion-prompt {
     display: none;
     background-image: url('/Modules/Core/Base/Data/NUI//Images/popupbg.png');
     box-shadow: 7px 7px black;
 }
 
- .char-select {
+.char-select {
     display: block;
     background-image: url('/Modules/Core/Base/Data/NUI/Images/popupbg.png');
     box-shadow: 7px 7px black;
     max-width: 15%;
 }
 
- .char-select:hover {
-   border: 2px solid;
-   border-color: aliceblue;
-   box-shadow: none;
+.char-select:hover {
+    border: 2px solid;
+    border-color: aliceblue;
+    box-shadow: none;
 }
 
- #create-character-button {
+#create-character-button {
     display: none;
 }
 
 
- .creation-text {
+.creation-text {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     font-family: 'Pricedown Bl', sans-serif;
@@ -78,27 +77,27 @@
     opacity: 0.9;
 }
 
- #creation-text-credits {
+#creation-text-credits {
     font-size: 18px;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     font-family: 'Pricedown Bl', sans-serif;
 }
 
- .creation-form-title {
+.creation-form-title {
     color: white;
     font-family: 'Pricedown Bl', sans-serif;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
 }
 
- #server-name {
+#server-name {
     font-family: 'Pricedown Bl', sans-serif;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
 }
 
- #site-container {
+#site-container {
     background-image: url('/Modules/Core/Base/Data/NUI/Images/bg.png');
     position: absolute;
     display: none;

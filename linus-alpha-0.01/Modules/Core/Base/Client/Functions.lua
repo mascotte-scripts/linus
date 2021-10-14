@@ -26,8 +26,7 @@ function CreateNewPlayerAppearance()
 	props = true,
   }
 	exports['fivem-appearance']:startPlayerCustomization(function (appearance)
-		if (appearance) then
-		print('Saved')        
+		if (appearance) then     
 		TriggerServerEvent('Player:SaveCharacterOutfit', appearance)
 		else
 		print('Canceled')
@@ -35,16 +34,14 @@ function CreateNewPlayerAppearance()
 	end, config)
 end
 
-function SetHUDAccountBalance(source, type, amount)
+function SetHUDAccountBalance(type, sum)
     if type == 'wallet' then
 		local accountwallet = `MP0_WALLET_BALANCE`
-        local sum = amount
         StatSetInt(accountwallet, math.floor(sum), true)
     elseif type == 'bank' then
 		local accountbank = `BANK_BALANCE`
-        local sum = amount
         StatSetInt(accountbank, math.floor(sum), true)
     else
-        print('An unknown error occured while attempting to find this account')
+        print('An error occured: SetHUDAccountBalance(type, sum)')
     end
 end

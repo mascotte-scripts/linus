@@ -99,13 +99,16 @@ RegisterNetEvent('Player:SetCharacterID', function(characterid)
  TriggerLatentClientEvent('xPlayer:SetClientSource', source, 500, test, xPlayerData)
 end)
 
-RegisterServerCallback('linus-callbacks:GetLastCoordinates', function(source)
-    local netId = tonumber(source)
-    local identifier = IDENTIFIER_CACHE[netId].license2
-    local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
-    local result = json.decode(data)
-    return result or nil
-end)
+RegisterServerCallback {
+    eventName = 'linus-callbacks:GetLastCoordinates',
+    eventCallback = function(source, ...)
+        local netId = tonumber(source)
+        local identifier = IDENTIFIER_CACHE[netId].license2
+        local data = GetResourceKvpString(('%s:CharacterData:lastlocation'):format(identifier))
+        local result = json.decode(data)
+        return result
+    end
+}
 
 AddEventHandler('playerDropped', function()
     local netId = tonumber(source)
@@ -117,19 +120,25 @@ AddEventHandler('playerDropped', function()
     SetResourceKvpInt(('%s:serverid'):format(GetCharacter), nil) -- Intentional
 end)
 
-RegisterServerCallback('linus-callback:GetAccountBalance', function(source, account)
-    local netId = tonumber(source)
-    local identifier = IDENTIFIER_CACHE[netId].license2
-    if account == 'bank' then
-       local balance = GetBalance(identifier, account)
-        return balance
-    elseif account == 'wallet' then
-        local balance = GetBalance(identifier, account)
-        return balance
-    else
-        return 'Unknown Error in callback GetAccountBalance'
+RegisterServerCallback {
+    eventName = 'linus-callbacks:GetBankBalance',
+    eventCallback = function(source, account)
+        local netId = tonumber(source)
+        local identifier = IDENTIFIER_CACHE[netId].license2
+           local balance = GetBalance(identifier, 'bank')
+            return balance
     end
-end)
+}
+
+RegisterServerCallback {
+    eventName = 'linus-callbacks:GetWalletBalance',
+    eventCallback = function(source, account)
+        local netId = tonumber(source)
+        local identifier = IDENTIFIER_CACHE[netId].license2
+           local balance = GetBalance(identifier, 'wallet')
+            return balance
+    end
+}
 
 RegisterNetEvent('Linus:SetIdentifierToServerId', function()
     local netId = tonumber(source)

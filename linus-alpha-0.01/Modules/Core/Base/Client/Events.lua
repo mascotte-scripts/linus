@@ -28,10 +28,8 @@ AddEventHandler('Player:CreateNewCharacterOutfit', function(source)
 end)
 
 RegisterNetEvent('Player:LoadCharacterOutfit')
-AddEventHandler('Player:LoadCharacterOutfit', function(source, charappearance)
-  local appearance = charappearance
+AddEventHandler('Player:LoadCharacterOutfit', function(source, appearance)
   exports["fivem-appearance"]:setPlayerAppearance(source, appearance)
-  print('Loaded Outfit')
 end)
 
 RegisterNetEvent('Player:cl_SetCharacterData', function(source, CharacterData)
@@ -57,15 +55,21 @@ AddEventHandler('Player:SpawnPlayer', function(isSpawn)
 			skipFade = false
 		})
         else
-            local result = TriggerServerCallback('linus-callbacks:GetLastCoordinates', 200)
-            exports.spawnmanager:spawnPlayer({
-                x = result.x,
-                y = result.y,
-                z = result.z + 0.25,
-                heading = 0.0,
-                model = `mp_m_freemode_01`,
-                skipFade = false
-            })
+           TriggerServerCallback {
+               eventName = 'linus-callbacks:GetLastCoordinates',
+               args = {'some', 'args', 'here'},
+               callback = function(result)
+                print(result)
+                exports.spawnmanager:spawnPlayer({
+                    x = result.x,
+                    y = result.y,
+                    z = result.z + 0.25,
+                    heading = 0.0,
+                    model = `mp_m_freemode_01`,
+                    skipFade = false
+                })
+               end
+            }
         end
     end       
     isSpawn = false
@@ -92,26 +96,46 @@ RegisterNUICallback("Base/SetCharacterData", function(CharacterData)
 end)
 
 RegisterNUICallback("Base/LoadCharacterData", function(activecharid)
-    local characterid = activecharid
-    TriggerServerEvent('Player:SetCharacterID', characterid)
+    TriggerServerEvent('Player:SetCharacterID', activecharid)
     isSpawn = true
     SetSelectionScreenDisplay(false)
     TriggerEvent('Player:SpawnPlayer', isSpawn)
 end)
 
 RegisterNetEvent('Player:InitHudAccountBalance', function()
-    local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
-    local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
-        SetHUDAccountBalance(source, 'bank', bankbalance)
-        SetHUDAccountBalance(source, 'wallet', walletbalance)
+   TriggerServerCallback {
+    eventName = 'linus-callbacks:GetBankBalance',
+    args = {'bank'},
+    callback = function(result, args)
+     SetHUDAccountBalance('bank', result)
+    end
+ }
+
+ TriggerServerCallback {
+    eventName = 'linus-callbacks:GetWalletBalance',
+    args = {'wallet'},
+    callback = function(result, args)
+     SetHUDAccountBalance('wallet', result)
+    end
+ }
 end)
 
 RegisterNetEvent('Player:UpdateHudWalletBalance', function(source)
-    local walletbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'wallet')
-    SetHUDAccountBalance(source, 'wallet', walletbalance)
+    TriggerServerCallback {
+        eventName = 'linus-callbacks:GetWalletBalance',
+        args = {'wallet'},
+        callback = function(result, args)
+         SetHUDAccountBalance('wallet', result)
+        end
+     }
 end)
 
 RegisterNetEvent('Player:UpdateHudBankBalance', function(source)
-    local bankbalance = TriggerServerCallback('linus-callback:GetAccountBalance', 200, 'bank')
-    SetHUDAccountBalance(source, 'bank', bankbalance)
+    TriggerServerCallback {
+        eventName = 'linus-callbacks:GetBankBalance',
+        args = {'bank'},
+        callback = function(result, args)
+         SetHUDAccountBalance('bank', result)
+        end
+     }
 end)
