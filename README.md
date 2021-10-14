@@ -8,7 +8,7 @@ Linus is a lightweight & user friendly roleplaying framework for FiveM. It is th
 # Installation
 
 - Download the latest release from the side tab, and extract the folder 'linus' and it's contents to your resource folder.
-- Rename the resource from `linus-alpha-0.01` to `linus`
+- Rename the resource from `linus-alpha-0.01` to whatever you like. However, changing the resource name will cause issues with the kvp storage, so it's recommended to only change the resource name once.
 - Alternatively, clone the repo using `https://github.com/mascotte-scripts/linus.git`
 - Copy `valkyrie.cfg, LinusConfig.cfg, LinusPerms.cfg` from the linus folder to the same folder as `server.cfg` 
 - Add to server.cfg: 
