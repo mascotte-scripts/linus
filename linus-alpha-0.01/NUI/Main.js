@@ -46,10 +46,10 @@ function LoadModuleCSS(xhref){
 // Function hides or displays a html module using onclick
 function showhtmlmodule(module) {
     var x = document.getElementById(module);
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
+    if (x.style.display === "block") {
       x.style.display = "none";
+    } else {
+      x.style.display = "block";
     }
   }
 function romanize (num) {
