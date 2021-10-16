@@ -3,15 +3,21 @@ window.addEventListener('message', event => {
     if (item.type === 'adminui') {
       document.getElementById("NuiModuleBase").innerHTML=loadPage('/Modules/Core/AdminTools/Data/NUI/Main.html');
       LoadModuleCSS('/Modules/Core/AdminTools/Data/NUI/Main.css');
-        setTimeout(function(){ const adminsite = document.getElementById('admin-site-container')
+      window.onload = nuiReady(item);
+    }
+})
+
+let nuiReady = item => {
+  setTimeout(function() {
+  const adminsite = document.getElementById('admin-site-container')
         if (item.status == true) {
           adminsite.style.display = 'block';
         } else {
-          adminsite.style.display = 'none';
-        }}, 3000);      
+          adminsite.style.display = 'none';   
     }
     resourcename = item.resourcename;
-})
+  }, 1000);
+}
 
 window.addEventListener('keyup', event => {
   if (event.keyCode === 27) {
@@ -28,7 +34,16 @@ let adminActionExecute = () => {
     } else
     if (value == 2) { 
       post(`https://${resourcename}/admintools/kick`, getinputdata);
-    } else
+    } 
+    else 
+    if (value == 3) {
+      post(`https://${resourcename}/admintools/depositcash`, getinputdata);
+    }
+    else 
+    if (value == 4) {
+      post(`https://${resourcename}/admintools/removecash`, getinputdata);
+    }
+    else
     if (value == 6) { 
       post(`https://${resourcename}/admintools/spawnvehicle`, getinputdata); 
     }

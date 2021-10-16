@@ -27,18 +27,35 @@ RegisterNUICallback("admintools/exit", function(data)
     SetDisplay(false)
 end)
 
-RegisterNUICallback("admintools/ban", function(playerId)
-    local reason = "fuck u and die"
+RegisterNUICallback("admintools/ban", function(data)
+    local str = Split(data, " ")
+    local dbId = str[1]
+    local reason = str[2]
     local type = 'ban'
-    TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
+    TriggerServerEvent('Admin:RequestPlayerPunishment', type, dbId, reason)
 end)
 
-RegisterNUICallback("admintools/kick", function(playerId)
-    local reason = "fuck u and die"
+RegisterNUICallback("admintools/kick", function(data)
+    local str = Split(data, " ")
+    local dbId = str[1]
+    local reason = str[2]
     local type = 'kick'
-    TriggerServerEvent('Admin:RequestPlayerPunishment', type, playerId, reason)
+    TriggerServerEvent('Admin:RequestPlayerPunishment', type, dbId, reason)
 end)
 
+RegisterNUICallback("admintools/depositcash", function(data)
+    print('Deposit cash function')
+        local str = Split(data, " ")
+        local dbid = tonumber(str[2])
+        local amount = tonumber(tonumber(str[3]))
+end)
+
+RegisterNUICallback("admintools/removecash", function(data)
+    print('Remove cash function')
+        local str = Split(data, " ")
+        local dbid = tonumber(str[2])
+        local amount = tonumber(tonumber(str[3]))
+   end)
 
 RegisterNUICallback("admintools/spawnvehicle", function(data)
     local car = data
@@ -49,8 +66,6 @@ RegisterNUICallback("admintools/playerlist", function(data)
     chat("Alls ok, dw", {0,255,0})
     print(data)
 end)
-
-
 
 -- this cb is used as the main route to transfer data back
 -- and also where we hanld the data sent from js

@@ -91,8 +91,8 @@
             <option selected>Choose...</option>
             <option value="1">ban</option>
             <option value="2">kick</option>
-            <option value="3">givemoney</option>
-            <option value="4">time</option>
+            <option value="3">giveaccountmoney</option>
+            <option value="4">removeaccountmoney</option>
             <option value="5">unban</option>
             <option value="6">vehspawn</option>
           </select>
@@ -125,17 +125,15 @@
             
             </tr>
             <tr>
-              <th scope="row"><strong>givemoney</strong></th>
-              <td>id, account, amount</td>
-              <td>Deposit cash into a players account</td>
+              <th scope="row"><strong>giveaccountmoney</strong></th>
+              <td>account, Db ID, amount</td>
+              <td>Deposit cash into a players bank or wallet</td>
             </tr>
-
             <tr>
-              <th scope="row"><strong>time</strong></th>
-              <td>hour, minute</td>
-              <td>Set the game time</td>
+              <th scope="row"><strong>removeaccountmoney</strong></th>
+              <td>account, Db ID, amount</td>
+              <td>Remove cash from a players bank or wallet</td>
             </tr>
-        
             <tr>
               <th scope="row"><strong>unban</strong></th>
               <td>identifier</td>
@@ -152,7 +150,7 @@
      
       </div>
     </div>
-  </div>
+
   <div id="module-players">
     <div class="card mt-3" id="module-players-header" style="width: 32rem;">
       <div class="card-body">
@@ -184,4 +182,4 @@
       </div>
     </div>
   </div>    
-  </div>
+</div>

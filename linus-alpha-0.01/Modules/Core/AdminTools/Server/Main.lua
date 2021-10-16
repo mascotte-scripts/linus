@@ -1,10 +1,11 @@
 RegisterNetEvent('Admin:RequestPlayerPunishment')
-AddEventHandler('Admin:RequestPlayerPunishment', function(type, playerId, reason)
+AddEventHandler('Admin:RequestPlayerPunishment', function(type, dbId, reason)
     if IsPlayerAceAllowed(source, 'ace.perm') then
-        local playerId = tonumber(playerId)
+        local getIdentifier = GetIdentifierFromDbId(dbId)
+        local playerId = GetServerIdFromIdentifier(getIdentifier)
         if (type == 'kick') then
-            DropPlayer(playerId, reason)
-        else
+            DropPlayer(playerId,"You have been kicked from the server \n Reason:".." "..reason)
+        elseif type == 'ban' then
             exports.linus:banPlayer(playerId, reason)
         end
     end
