@@ -1,28 +1,55 @@
+const cssSheet = '/Modules/Core/Base/Data/NUI/Main.css';
+const htmlPage = '/Modules/Core/Base/Data/NUI/Main.html';
+const moduleName = "NuiModuleBase";
+
 window.addEventListener('message', event => {
   let item = event.data;
+  eventData = item;
   if (item.type === 'ui') {
-      document.getElementById("NuiModuleBase").innerHTML = loadPage('/Modules/Core/Base/Data/NUI/Main.html');
-      LoadModuleCSS('/Modules/Core/Base/Data/NUI/Main.css');
-      window.onload = waitForNUItoLoad(item);
+    loadNuiPage(item);
   }
 })
 
-function waitForNUItoLoad(item) {
-  setTimeout(function() {
-      const site = document.getElementById('site-container');
-      if (item.CharNumber) {
-          let CharNumber = item.CharNumber;
-          let CharName = `${item.CharName} ${item.CharLastName}`;
-          document.getElementById(`char-slot-${CharNumber}-name`).innerText = CharName;
-      }
-      if (item.status == true) {
-          site.style.display = 'block';
-      } else {
-          site.style.display = 'none';
-      }
+async function loadNuiPage(item) {
+  let promise = new Promise(function(resolve, reject){
+    resolve(loadPage(htmlPage));
+  });
+  document.getElementById(moduleName).innerHTML = await promise;
+  promise.then(() => {
+    loadNuiCSS(item);
+  });
+}
 
-      resourcename = item.resourcename;
+async function loadNuiCSS(item) {
+  let promise = new Promise(function(resolve, reject){
+    resolve(LoadModuleCSS(cssSheet));
+  });
+  promise.then(() => {
+    loadNuiCharacterData(item);
+  }
+  );
+}
+
+function loadNuiCharacterData(item) {
+    const site = document.getElementById('site-container');
+    if (item.status == true) {
+      site.style.display = 'block';
+  } else {
+      site.style.display = 'none';
+  }
+  setTimeout(function() {
+    if (item.CharNumber) {
+        let CharNumber = item.CharNumber;
+        let CharName = `${item.CharName} ${item.CharLastName}`;    
+        document.getElementById(`char-slot-${CharNumber}-name`).innerText = CharName;
+    }
   }, 1000);
+    resourcename = item.resourcename;
+  }
+
+let SetCharIdToPlayer = charid => {
+  activecharid = charid;
+  return activecharid;
 }
 
 let SetCharIdToPlayer = charid => {
