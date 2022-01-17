@@ -2,6 +2,8 @@
 
 ## [FAQ](/faq.md) | [Installation](/install.md) | [Client Docs](/client/cl_commands.md) | [Server Docs](/server/sv_commands.md)
 
+# This is not a full release. A lot of stuff like character deletion and some NUI data isn't yet working. This is stuff we're aware of, but not considering a priority just as of yet considering this is a Work In Progress
+
 # Linus Framework [Work In Progress]
 Linus is a lightweight & user friendly roleplaying framework for FiveM. It is the first FiveM framework of it's kind to be completely independent of any 3rd party dependencies such as using a mySQL database. The user-friendly layout and code modulation of Linus makes it simple to navigate and make changes to, regardless of coding skill. Development commenced on the project in early summer 2021, by Mascotte45 & NotSomething0 - however, many many people have contributed to this project since it's conception, whether be it directly or indirectly (Refer to Notes section for full list of noted contributions)
 
